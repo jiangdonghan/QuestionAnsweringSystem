@@ -10,10 +10,23 @@ using Lucene.Net.Documents; // for Socument
 using Lucene.Net.Index; //for Index Writer
 using Lucene.Net.Store; //for Directory
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace KLDQuziAnsnwerSystem
 {
+    class collection
+    {
+        public List<passages> passages { get; set; }
+        public JArray answers { get; set; }
+        public String query_id { get; set; }
+    }
+    class passages
+    {
+        public String url { get; set; }
+        public String passage_text { get; set; }
+        public String passage_ID { get; set; }
 
+    }
     class indexing
     {
         Lucene.Net.Store.Directory luceneIndexDirectory;
@@ -47,10 +60,45 @@ namespace KLDQuziAnsnwerSystem
             writer.Flush(true, true, true);
             writer.Dispose();
         }
+        public void AddDocument(String queryID,String txt, String url, String answer)
+        {
+            //Field fId = new Field("passage_txt", p.ToString(), Field.Store.NO, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
+            Field fQueryID = new Field("Query_ID", queryID, Field.Store.NO, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
+            Field fTxt = new Field("passage_txt",txt, Field.Store.NO, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
+            Field fUrl = new Field("passage_url", url, Field.Store.NO, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
+            Field fAnswer = new Field("Answer", answer, Field.Store.NO, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
+            
+            doc.Add(fQueryID);
+            doc.Add(fTxt);
+            doc.Add(fUrl);
+            doc.Add(fAnswer);
+            writer.AddDocument(doc);
+        }
+        Document doc = new Document();
+        public void AddQueryID(String queryID)
+        {
+            Field fQueryID = new Field("Query_ID", queryID, Field.Store.NO, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
+            doc.Add(fQueryID);
+        }
+        public void AddTxt(String txt)
+        {
+            Field fTxt = new Field("passage_txt", txt, Field.Store.NO, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
+            doc.Add(fTxt);
+        }
+        public void AddUrl(String url)
+        {
+            Field fUrl = new Field("passage_url", url, Field.Store.NO, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
+            doc.Add(fUrl);
+        }
+        public void AddAnswer(String answer)
+        {
+            Field fAnswer = new Field("Answer", answer, Field.Store.NO, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
+            doc.Add(fAnswer);
+        }
         //to do : read json files, select correct field,add to writer
         public void IndexJsonFile(String path)
         {
-            String jsonPath = path + "/collection.json";
+            String jsonPath = path + "/sample_collection.json";
             JsonSerializer serializer = new JsonSerializer();
             using (FileStream s = File.Open(jsonPath, FileMode.Open))
             using (StreamReader sr = new StreamReader(s))
@@ -62,11 +110,45 @@ namespace KLDQuziAnsnwerSystem
                     if (reader.TokenType == JsonToken.StartObject)
                     {
                         //can't index json file here
-                        var p = serializer.Deserialize<object>(reader);
-                        Field f1 = new Field("Test", p.ToString(), Field.Store.NO, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
-                        Document d1 = new Document();
-                        d1.Add(f1);
-                        writer.AddDocument(d1);
+                        var p = serializer.Deserialize<JObject>(reader);
+                        List<string> listUrl = new List<string>();
+                        List<string> listText = new List<string>();
+                        List<string> listAnswer = new List<string>();
+                        List<string> listQuery_id = new List<string>();
+                        foreach (var item in p["passages"])
+                        {
+                            listUrl.Add(item["url"].ToString());
+                        }
+                        foreach (var item in p["passages"])
+                        {
+                            listText.Add(item["passage_text"].ToString());
+                        }
+                        foreach (var item in p["answers"])
+                        {
+                            listAnswer.Add(item.ToString());
+                        }
+                        foreach (var item in p["query_id"])
+                        {
+                            listQuery_id.Add(item.ToString());
+                        }
+                        foreach (string ss in listUrl)
+                        {
+                            AddUrl(ss);
+                        }
+                        foreach (string ss in listText)
+                        {
+                            AddUrl(ss);
+                        }
+                        foreach (string ss in listUrl)
+                        {
+                            AddUrl(ss);
+                        }
+                        foreach (string ss in listUrl)
+                        {
+                            AddUrl(ss);
+                        }
+
+
                     }
                 }
             }
