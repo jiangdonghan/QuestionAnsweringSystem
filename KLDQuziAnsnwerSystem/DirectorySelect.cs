@@ -59,9 +59,8 @@ namespace KLDQuziAnsnwerSystem
             DateTime beforDT = System.DateTime.Now;
             indexing myIndex = new indexing();
             myIndex.OpenIndex(IndexPath);
-            myIndex.CreateSimpleAnalyser();
-            myIndex.CreateWriter();
             myIndex.IndexJsonFile(CollectionPath);
+            myIndex.CleanUpIndexer();
             DateTime afterDT = System.DateTime.Now;
             TimeSpan ts = afterDT.Subtract(beforDT);
             MessageBox.Show("Indexing Time: "+ ts.TotalMilliseconds.ToString() +"ms");

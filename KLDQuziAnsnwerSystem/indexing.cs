@@ -36,7 +36,7 @@ namespace KLDQuziAnsnwerSystem
         public indexing()
         {
             luceneIndexDirectory = null; // Is set in Create Index
-            analyzer = null;  // Is set in CreateAnalyser
+            analyzer = new Lucene.Net.Analysis.SimpleAnalyzer();  // Is set in CreateAnalyser
             writer = null; // Is set in CreateWriter
         }
         public void OpenIndex(string indexPath)
@@ -44,17 +44,12 @@ namespace KLDQuziAnsnwerSystem
             /* Make sure to pass a new directory that does not exist */
             String Path = indexPath + "/index";
             luceneIndexDirectory = Lucene.Net.Store.FSDirectory.Open(Path);
-        }
-        public void CreateSimpleAnalyser()//only for the baseline system
-        {
-            analyzer = new SimpleAnalyzer();
-        }
-        public void CreateWriter()
-        {
             IndexWriter.MaxFieldLength mfl = new IndexWriter.MaxFieldLength(IndexWriter.DEFAULT_MAX_FIELD_LENGTH);
-            writer = new IndexWriter(luceneIndexDirectory, analyzer, true, mfl);
+            writer = new Lucene.Net.Index.IndexWriter(luceneIndexDirectory, analyzer, true, mfl);
         }
-        public void CleanUp()
+       
+        
+        public void CleanUpIndexer()
         {
             writer.Optimize();
             writer.Flush(true, true, true);
@@ -68,11 +63,11 @@ namespace KLDQuziAnsnwerSystem
             Field fUrl = new Field("passage_url", url, Field.Store.NO, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
             Field fAnswer = new Field("Answer", answer, Field.Store.NO, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
             
-            doc.Add(fQueryID);
+           /* doc.Add(fQueryID);
             doc.Add(fTxt);
             doc.Add(fUrl);
             doc.Add(fAnswer);
-            writer.AddDocument(doc);
+            writer.AddDocument(doc);*/
         }
         Document doc = new Document();
         public void AddQueryID(String queryID)
@@ -98,60 +93,33 @@ namespace KLDQuziAnsnwerSystem
         //to do : read json files, select correct field,add to writer
         public void IndexJsonFile(String path)
         {
-            String jsonPath = path + "/sample_collection.json";
+            String jsonPath = path + "/collection.json";
             JsonSerializer serializer = new JsonSerializer();
-            using (FileStream s = File.Open(jsonPath, FileMode.Open))
-            using (StreamReader sr = new StreamReader(s))
-            using (JsonReader reader = new JsonTextReader(sr))
-            {
+
+            StreamReader sr = new StreamReader(jsonPath);
+            JsonReader reader = new JsonTextReader(sr);
+            
                 while (reader.Read())
                 {
                     // deserialize only when there's "{" character in the stream
                     if (reader.TokenType == JsonToken.StartObject)
                     {
-                        //can't index json file here
-                        var p = serializer.Deserialize<JObject>(reader);
-                        List<string> listUrl = new List<string>();
-                        List<string> listText = new List<string>();
-                        List<string> listAnswer = new List<string>();
-                        List<string> listQuery_id = new List<string>();
-                        foreach (var item in p["passages"])
+                        collection c = serializer.Deserialize<collection>(reader);
+                        
+                        foreach (passages p in c.passages)
                         {
-                            listUrl.Add(item["url"].ToString());
+                            
+                            AddQueryID(c.query_id);
+                            AddTxt(p.passage_text);
+                            AddUrl(p.url);
+                            AddAnswer(c.answers.ToString());
+                            
                         }
-                        foreach (var item in p["passages"])
-                        {
-                            listText.Add(item["passage_text"].ToString());
-                        }
-                        foreach (var item in p["answers"])
-                        {
-                            listAnswer.Add(item.ToString());
-                        }
-                        foreach (var item in p["query_id"])
-                        {
-                            listQuery_id.Add(item.ToString());
-                        }
-                        foreach (string ss in listUrl)
-                        {
-                            AddUrl(ss);
-                        }
-                        foreach (string ss in listText)
-                        {
-                            AddUrl(ss);
-                        }
-                        foreach (string ss in listUrl)
-                        {
-                            AddUrl(ss);
-                        }
-                        foreach (string ss in listUrl)
-                        {
-                            AddUrl(ss);
-                        }
-
+                        writer.AddDocument(doc);
 
                     }
                 }
-            }
+            
 
 
             //loop the directory and get the json file
