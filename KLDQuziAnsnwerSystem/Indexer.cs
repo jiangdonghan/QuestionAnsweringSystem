@@ -16,8 +16,8 @@ namespace KLDQuziAnsnwerSystem
 {
     class collection
     {
-        public List<passages> passages { get; set; }
-        public JArray answers { get; set; }
+        public List<passages> passages { get; set;}
+        public JArray answers { get; set; }//也可以用list
         public String query_id { get; set; }
     }
     class passages
@@ -27,13 +27,13 @@ namespace KLDQuziAnsnwerSystem
         public String passage_ID { get; set; }
 
     }
-    class indexing
+    class Indexer
     {
         Lucene.Net.Store.Directory luceneIndexDirectory;
         Lucene.Net.Analysis.Analyzer analyzer;
         Lucene.Net.Index.IndexWriter writer;
         public static Lucene.Net.Util.Version VERSION = Lucene.Net.Util.Version.LUCENE_30;
-        public indexing()
+        public Indexer()
         {
             luceneIndexDirectory = null; // Is set in Create Index
             analyzer = new Lucene.Net.Analysis.SimpleAnalyzer();  // Is set in CreateAnalyser
@@ -105,18 +105,15 @@ namespace KLDQuziAnsnwerSystem
                     if (reader.TokenType == JsonToken.StartObject)
                     {
                         collection c = serializer.Deserialize<collection>(reader);
-                        
+                        var dictionary = new Dictionary<string, string>();
                         foreach (passages p in c.passages)
                         {
-                            
                             AddQueryID(c.query_id);
                             AddTxt(p.passage_text);
                             AddUrl(p.url);
                             AddAnswer(c.answers.ToString());
-                            
+                            writer.AddDocument(doc);
                         }
-                        writer.AddDocument(doc);
-
                     }
                 }
             

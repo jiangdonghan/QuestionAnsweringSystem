@@ -39,6 +39,7 @@
             // 
             // buttonIndexSave
             // 
+            this.buttonIndexSave.ForeColor = System.Drawing.Color.Coral;
             this.buttonIndexSave.Location = new System.Drawing.Point(195, 61);
             this.buttonIndexSave.Name = "buttonIndexSave";
             this.buttonIndexSave.Size = new System.Drawing.Size(385, 59);

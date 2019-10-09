@@ -57,7 +57,7 @@ namespace KLDQuziAnsnwerSystem
         private void IndexCreate_Click(object sender, EventArgs e)
         {
             DateTime beforDT = System.DateTime.Now;
-            indexing myIndex = new indexing();
+            Indexer myIndex = new Indexer();
             myIndex.OpenIndex(IndexPath);
             myIndex.IndexJsonFile(CollectionPath);
             myIndex.CleanUpIndexer();

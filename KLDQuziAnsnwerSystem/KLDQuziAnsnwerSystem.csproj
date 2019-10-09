@@ -61,7 +61,7 @@
     <Compile Include="DirectorySelect.Designer.cs">
       <DependentUpon>DirectorySelect.cs</DependentUpon>
     </Compile>
-    <Compile Include="indexing.cs" />
+    <Compile Include="Indexer.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,6 +70,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Searcher.cs" />
     <EmbeddedResource Include="DirectorySelect.resx">
       <DependentUpon>DirectorySelect.cs</DependentUpon>
     </EmbeddedResource>
