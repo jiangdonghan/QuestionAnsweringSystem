@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Lucene.Net.Analysis; // for Analyser
-using Lucene.Net.Documents; // for Socument
+using Lucene.Net.Documents; // for document
 using Lucene.Net.Index; //for Index Writer
 using Lucene.Net.Store; //for Directory
 using Newtonsoft.Json;
@@ -69,27 +69,29 @@ namespace KLDQuziAnsnwerSystem
             doc.Add(fAnswer);
             writer.AddDocument(doc);*/
         }
-        Document doc = new Document();
-        public void AddQueryID(String queryID)
-        {
-            Field fQueryID = new Field("Query_ID", queryID, Field.Store.NO, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
-            doc.Add(fQueryID);
-        }
+        
+        //public void AddQueryID(String queryID)
+        //{
+        //    Field fQueryID = new Field("Query_ID", queryID, Field.Store.NO, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
+        //    doc.Add(fQueryID);
+        //}
         public void AddTxt(String txt)
         {
-            Field fTxt = new Field("passage_txt", txt, Field.Store.NO, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
+            Document doc = new Document();
+            Field fTxt = new Field("text", txt, Field.Store.YES, Field.Index.ANALYZED);
             doc.Add(fTxt);
+            writer.AddDocument(doc);
         }
-        public void AddUrl(String url)
-        {
-            Field fUrl = new Field("passage_url", url, Field.Store.NO, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
-            doc.Add(fUrl);
-        }
-        public void AddAnswer(String answer)
-        {
-            Field fAnswer = new Field("Answer", answer, Field.Store.NO, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
-            doc.Add(fAnswer);
-        }
+        //public void AddUrl(String url)
+        //{
+        //    Field fUrl = new Field("passage_url", url, Field.Store.NO, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
+        //    doc.Add(fUrl);
+        //}
+        //public void AddAnswer(String answer)
+        //{
+        //    Field fAnswer = new Field("Answer", answer, Field.Store.NO, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
+        //    doc.Add(fAnswer);
+        //}
         //to do : read json files, select correct field,add to writer
         public void IndexJsonFile(String path)
         {
@@ -108,11 +110,13 @@ namespace KLDQuziAnsnwerSystem
                         var dictionary = new Dictionary<string, string>();
                         foreach (passages p in c.passages)
                         {
-                            AddQueryID(c.query_id);
-                            AddTxt(p.passage_text);
-                            AddUrl(p.url);
-                            AddAnswer(c.answers.ToString());
-                            writer.AddDocument(doc);
+                           
+                        
+                        String text = p.passage_text;
+                        text = text + p.url;
+                        AddTxt(p.passage_text);
+                            
+                        
                         }
                     }
                 }
