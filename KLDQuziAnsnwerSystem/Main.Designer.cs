@@ -36,66 +36,74 @@
             this.label3 = new System.Windows.Forms.Label();
             this.buttonOutput = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // SearchButton
             // 
-            this.SearchButton.Location = new System.Drawing.Point(1066, 69);
+            this.SearchButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(105)))), ((int)(((byte)(232)))));
+            this.SearchButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SearchButton.ForeColor = System.Drawing.Color.White;
+            this.SearchButton.Location = new System.Drawing.Point(591, 107);
             this.SearchButton.Name = "SearchButton";
-            this.SearchButton.Size = new System.Drawing.Size(194, 88);
+            this.SearchButton.Size = new System.Drawing.Size(167, 40);
             this.SearchButton.TabIndex = 0;
             this.SearchButton.Text = "Search";
-            this.SearchButton.UseVisualStyleBackColor = true;
+            this.SearchButton.UseVisualStyleBackColor = false;
             this.SearchButton.Click += new System.EventHandler(this.SearchButton_Click);
             // 
             // ResultTextBox
             // 
-            this.ResultTextBox.Location = new System.Drawing.Point(165, 243);
+            this.ResultTextBox.Location = new System.Drawing.Point(79, 393);
             this.ResultTextBox.Name = "ResultTextBox";
-            this.ResultTextBox.Size = new System.Drawing.Size(1201, 585);
+            this.ResultTextBox.Size = new System.Drawing.Size(801, 422);
             this.ResultTextBox.TabIndex = 1;
             this.ResultTextBox.Text = "";
             // 
             // Querytext
             // 
-            this.Querytext.Location = new System.Drawing.Point(539, 69);
+            this.Querytext.Font = new System.Drawing.Font("Roboto", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Querytext.ForeColor = System.Drawing.Color.Black;
+            this.Querytext.Location = new System.Drawing.Point(77, 107);
+            this.Querytext.Multiline = true;
             this.Querytext.Name = "Querytext";
-            this.Querytext.Size = new System.Drawing.Size(411, 31);
+            this.Querytext.Size = new System.Drawing.Size(494, 40);
             this.Querytext.TabIndex = 2;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(335, 72);
+            this.label1.Location = new System.Drawing.Point(74, 74);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(76, 25);
+            this.label1.Size = new System.Drawing.Size(203, 18);
             this.label1.TabIndex = 3;
-            this.label1.Text = "Query:";
+            this.label1.Text = "Enter your search query here:";
+            this.label1.Click += new System.EventHandler(this.Label1_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(203, 169);
+            this.label2.Location = new System.Drawing.Point(75, 338);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(73, 25);
+            this.label2.Size = new System.Drawing.Size(50, 18);
             this.label2.TabIndex = 4;
             this.label2.Text = "Result";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(335, 132);
+            this.label3.Location = new System.Drawing.Point(74, 261);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(181, 25);
+            this.label3.Size = new System.Drawing.Size(121, 18);
             this.label3.TabIndex = 5;
             this.label3.Text = "Your Final Query:";
             this.label3.Click += new System.EventHandler(this.Label3_Click);
             // 
             // buttonOutput
             // 
-            this.buttonOutput.Location = new System.Drawing.Point(647, 870);
+            this.buttonOutput.Location = new System.Drawing.Point(904, 665);
             this.buttonOutput.Name = "buttonOutput";
-            this.buttonOutput.Size = new System.Drawing.Size(237, 119);
+            this.buttonOutput.Size = new System.Drawing.Size(157, 86);
             this.buttonOutput.TabIndex = 6;
             this.buttonOutput.Text = "Output Result";
             this.buttonOutput.UseVisualStyleBackColor = true;
@@ -104,17 +112,31 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(221, 21);
+            this.label4.Location = new System.Drawing.Point(539, 74);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(70, 25);
+            this.label4.Size = new System.Drawing.Size(48, 18);
             this.label4.TabIndex = 7;
             this.label4.Text = "label4";
+            this.label4.Click += new System.EventHandler(this.Label4_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
+            this.label5.Location = new System.Drawing.Point(72, 12);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(234, 25);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Step 2: Start Searching";
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1560, 1074);
+            this.ClientSize = new System.Drawing.Size(1125, 749);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.buttonOutput);
             this.Controls.Add(this.label3);
@@ -123,6 +145,7 @@
             this.Controls.Add(this.Querytext);
             this.Controls.Add(this.ResultTextBox);
             this.Controls.Add(this.SearchButton);
+            this.Font = new System.Drawing.Font("Roboto", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "Main";
             this.Text = "Main";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
@@ -143,5 +166,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button buttonOutput;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
     }
 }
