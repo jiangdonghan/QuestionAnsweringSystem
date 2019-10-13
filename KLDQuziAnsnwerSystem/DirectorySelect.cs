@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lucene.Net.Analysis;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,11 +11,17 @@ using System.Windows.Forms;
 
 namespace KLDQuziAnsnwerSystem
 {
+    
     public partial class DirectorySelect : Form
     {
-
+        Main f2= new Main();
         String IndexPath;
         String CollectionPath;
+        const Lucene.Net.Util.Version VERSION = Lucene.Net.Util.Version.LUCENE_30;
+        
+        Lucene.Net.Analysis.Analyzer analyzer_simple = new Lucene.Net.Analysis.SimpleAnalyzer();
+        Analyzer analyzer_standard = new Lucene.Net.Analysis.Standard.StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
+        Analyzer analyzer_snowball = new Lucene.Net.Analysis.Snowball.SnowballAnalyzer(Lucene.Net.Util.Version.LUCENE_30, "English");
         public DirectorySelect()
         {
             InitializeComponent();
@@ -53,26 +60,86 @@ namespace KLDQuziAnsnwerSystem
             }
             
         }
-
+        
         private void IndexCreate_Click(object sender, EventArgs e)
         {
-            DateTime beforDT = System.DateTime.Now;
-            Indexer myIndex = new Indexer();
-            myIndex.OpenIndex(IndexPath);
-            myIndex.IndexJsonFile(CollectionPath);
-            myIndex.CleanUpIndexer();
-            DateTime afterDT = System.DateTime.Now;
-            TimeSpan ts = afterDT.Subtract(beforDT);
-            MessageBox.Show("Indexing Time: "+ ts.TotalMilliseconds.ToString() +"ms");
-            Main main = new Main();
-            this.Close();
-            main.Show();
-            
+            if (SelectSystem.Checked) {
+                DateTime beforDT = System.DateTime.Now;
+                Indexer myIndex = new Indexer(analyzer_simple);
+                myIndex.OpenIndex(IndexPath);
+                myIndex.IndexJsonFile(CollectionPath);
+                myIndex.CleanUpIndexer();
+                DateTime afterDT = System.DateTime.Now;
+                TimeSpan ts = afterDT.Subtract(beforDT);
+                labelTime.Text = "Indexing Time: " + ts.TotalSeconds.ToString() + "s";
+                
+            }
+            else
+            {
+                DateTime beforDT = System.DateTime.Now;
+                NewIndexer myIndex = new NewIndexer();
+                myIndex.OpenIndex(IndexPath);
+                myIndex.IndexJsonFile(CollectionPath);
+                myIndex.CleanUpIndexer();
+                DateTime afterDT = System.DateTime.Now;
+                TimeSpan ts = afterDT.Subtract(beforDT);
+                labelTime.Text = "Indexing Time: "+ts.TotalSeconds.ToString() + "s";
 
+            }
         }
 
         private void Label1_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void DirectorySelect_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            
+        }
+
+        private void CheckBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+        public delegate void setTextValue(string textValue);
+        public event setTextValue setFormTextValue;
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            if (SelectSystem.Checked)
+            {
+                //TextBox的值
+                string inputValue = IndexDirectoryPath.Text.Trim();
+                //创建窗体
+                Main main = new Main();
+                //委托进行窗体传值
+                main.GetValue = delegate () {
+                    return inputValue;
+                };
+                //委托进行获取值
+                main.SendValue = delegate (string a) {
+                    this.IndexDirectoryPath.Text = a;
+                };
+                //委托进行获取并传递值
+                main.GetAndSend = delegate (string a) {
+                    string formValue = this.IndexDirectoryPath.Text;
+                    this.IndexDirectoryPath.Text = a;
+                    return formValue;
+                };
+
+                
+                this.Close();
+                main.Show();
+               
+
+            }
+            else
+            {
+                NewMain newmain = new NewMain();
+                this.Close();
+                newmain.Show();
+            }
+
 
         }
     }
