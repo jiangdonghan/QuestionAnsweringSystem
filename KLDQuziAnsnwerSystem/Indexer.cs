@@ -19,6 +19,7 @@ namespace KLDQuziAnsnwerSystem
         public List<passages> passages { get; set;}
         public JArray answers { get; set; }
         public String query_id { get; set; }
+        public String query { get; set; }
     }
     class passages
     {

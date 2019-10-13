@@ -30,7 +30,7 @@ namespace KLDQuziAnsnwerSystem
         public void OpenIndex(string indexPath)
         {
             /* Make sure to pass a new directory that does not exist */
-            String Path = indexPath + "/index";
+            String Path = indexPath + "/index_non_base";
             luceneIndexDirectory = Lucene.Net.Store.FSDirectory.Open(Path);
             IndexWriter.MaxFieldLength mfl = new IndexWriter.MaxFieldLength(IndexWriter.DEFAULT_MAX_FIELD_LENGTH);
             writer = new Lucene.Net.Index.IndexWriter(luceneIndexDirectory, analyzer, true, mfl);
@@ -43,17 +43,27 @@ namespace KLDQuziAnsnwerSystem
             writer.Flush(true, true, true);
             writer.Dispose();
         }
-        public void AddDocument(String queryID, String txt, String url, String answer)
+        public void AddDocument(String queryID, String txt, String url, String answer, String query)
         {
             Document doc = new Document();
-            Field fQueryID = new Field("Query_ID", queryID, Field.Store.NO, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
+            
+            //Field fQueryID = new Field("Query_ID", queryID, Field.Store.NO, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
+            //doc.Add(fQueryID);
+
             Field fTxt = new Field("passage_txt", txt, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
-            Field fUrl = new Field("passage_url", url, Field.Store.NO, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
-            Field fAnswer = new Field("Answer", answer, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
-            doc.Add(fQueryID);
             doc.Add(fTxt);
-            doc.Add(fUrl);
+            
+            //Field fUrl = new Field("passage_url", url, Field.Store.NO, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
+            //doc.Add(fUrl);
+
+            Field fAnswer = new Field("Answer", answer, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
             doc.Add(fAnswer);
+
+
+            Field fQuery = new Field("query", query, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
+            doc.Add(fQuery);
+
+
             writer.AddDocument(doc);
         }
 
@@ -82,7 +92,7 @@ namespace KLDQuziAnsnwerSystem
         //to do : read json files, select correct field,add to writer
         public void IndexJsonFile(String path)
         {
-            String jsonPath = path + "/collection.json";
+            String jsonPath = path + "/sample_collection.json";
             JsonSerializer serializer = new JsonSerializer();
             StreamReader sr = new StreamReader(jsonPath);
             JsonReader reader = new JsonTextReader(sr);
@@ -94,7 +104,7 @@ namespace KLDQuziAnsnwerSystem
                     collection c = serializer.Deserialize<collection>(reader);
                     foreach (passages p in c.passages)
                     {
-                        AddDocument(c.query_id, p.passage_text, p.url, c.answers.ToString());
+                        AddDocument(c.query_id, p.passage_text, p.url, c.answers.ToString(), c.query);
                     }
                 }
             }
