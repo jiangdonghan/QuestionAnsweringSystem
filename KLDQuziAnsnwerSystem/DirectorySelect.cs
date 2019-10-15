@@ -31,6 +31,7 @@ namespace KLDQuziAnsnwerSystem
         {
             FolderBrowserDialog dialog = new FolderBrowserDialog();
             dialog.Description = "Please choose the file path for collection";
+            
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 CollectionDirectoryPath.Text = dialog.SelectedPath;
