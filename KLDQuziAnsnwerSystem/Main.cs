@@ -18,11 +18,6 @@ namespace KLDQuziAnsnwerSystem
             InitializeComponent();
 
         }
-
-        
-
-        
-
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (MessageBox.Show("Continue to close the application?", "Ask", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -35,7 +30,6 @@ namespace KLDQuziAnsnwerSystem
             }
             
         }
-
         private void Main_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
@@ -64,18 +58,28 @@ namespace KLDQuziAnsnwerSystem
         public Func<string, string> GetAndSend;
         private void SearchButton_Click(object sender, EventArgs e)
         {
-
-            
-            DirectorySelect dd = new DirectorySelect();
+            DateTime beforDT = System.DateTime.Now;   
             String path = label4.Text;
-            label4.Text = path;
+            
             Searcher searcher = new Searcher(analyzer_simple);
             searcher.CreateSearcher(path);
             String queryText = Querytext.Text;
             List<String> listResult = searcher.SearchText(queryText);
             ResultTextBox.Lines = listResult.ToArray();
-
-
+            int len = ResultTextBox.TextLength;
+            int index = 0;
+            int lastIndex = ResultTextBox.Text.LastIndexOf(queryText);
+            while (index < lastIndex)
+            {
+                ResultTextBox.Find(queryText, index, len, RichTextBoxFinds.None);
+                ResultTextBox.SelectionBackColor = Color.Red;
+                index = ResultTextBox.Text.IndexOf(queryText, index) + 1;
+            }
+            labelFinalQuery.Text = queryText;
+            DateTime afterDT = System.DateTime.Now;
+            TimeSpan ts = afterDT.Subtract(beforDT);
+            labelSearchingTime.Text = ts.TotalSeconds.ToString() + "s";
+            searcher.CleanUpSearcher();
         }
 
         private void Label4_Click(object sender, EventArgs e)
