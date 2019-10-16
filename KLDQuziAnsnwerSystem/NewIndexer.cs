@@ -30,13 +30,11 @@ namespace KLDQuziAnsnwerSystem
         public void OpenIndex(string indexPath)
         {
             /* Make sure to pass a new directory that does not exist */
-            String Path = indexPath + "/index";
+            String Path = indexPath;
             luceneIndexDirectory = Lucene.Net.Store.FSDirectory.Open(Path);
             IndexWriter.MaxFieldLength mfl = new IndexWriter.MaxFieldLength(IndexWriter.DEFAULT_MAX_FIELD_LENGTH);
             writer = new Lucene.Net.Index.IndexWriter(luceneIndexDirectory, analyzer, true, mfl);
         }
-
-
         public void CleanUpIndexer()
         {
             writer.Optimize();
@@ -46,40 +44,16 @@ namespace KLDQuziAnsnwerSystem
         public void AddDocument(String queryID, String txt, String url, String answer)
         {
             Document doc = new Document();
-            Field fQueryID = new Field("Query_ID", queryID, Field.Store.NO, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
-            Field fTxt = new Field("passage_txt", txt, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
-            Field fUrl = new Field("passage_url", url, Field.Store.NO, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
-            Field fAnswer = new Field("Answer", answer, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
+            Field fQueryID = new Field("Query_ID", queryID, Field.Store.NO, Field.Index.ANALYZED);
+            Field fTxt = new Field("passage_txt", txt, Field.Store.YES, Field.Index.ANALYZED);
+            Field fUrl = new Field("passage_url", url, Field.Store.YES, Field.Index.ANALYZED);
+            Field fAnswer = new Field("Answer", answer, Field.Store.YES, Field.Index.ANALYZED);
             doc.Add(fQueryID);
             doc.Add(fTxt);
             doc.Add(fUrl);
             doc.Add(fAnswer);
             writer.AddDocument(doc);
         }
-
-        //public void AddQueryID(String queryID)
-        //{
-        //    Field fQueryID = new Field("Query_ID", queryID, Field.Store.NO, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
-        //    doc.Add(fQueryID);
-        //}
-        public void AddTxt(String txt)
-        {
-            Document doc = new Document();
-            Field fTxt = new Field("text", txt, Field.Store.NO, Field.Index.ANALYZED);
-            doc.Add(fTxt);
-            writer.AddDocument(doc);
-        }
-        //public void AddUrl(String url)
-        //{
-        //    Field fUrl = new Field("passage_url", url, Field.Store.NO, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
-        //    doc.Add(fUrl);
-        //}
-        //public void AddAnswer(String answer)
-        //{
-        //    Field fAnswer = new Field("Answer", answer, Field.Store.NO, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
-        //    doc.Add(fAnswer);
-        //}
-        //to do : read json files, select correct field,add to writer
         public void IndexJsonFile(String path)
         {
             String jsonPath = path + "/collection.json";

@@ -36,6 +36,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.buttonOutput = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.labelFinalQuery = new System.Windows.Forms.Label();
+            this.lableRunTime = new System.Windows.Forms.Label();
+            this.labelSearchingTime = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // SearchButton
@@ -52,7 +56,7 @@
             // 
             this.ResultTextBox.Location = new System.Drawing.Point(165, 243);
             this.ResultTextBox.Name = "ResultTextBox";
-            this.ResultTextBox.Size = new System.Drawing.Size(1201, 585);
+            this.ResultTextBox.Size = new System.Drawing.Size(1237, 608);
             this.ResultTextBox.TabIndex = 1;
             this.ResultTextBox.Text = "";
             // 
@@ -75,7 +79,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(203, 169);
+            this.label2.Location = new System.Drawing.Point(46, 246);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(73, 25);
             this.label2.TabIndex = 4;
@@ -93,7 +97,7 @@
             // 
             // buttonOutput
             // 
-            this.buttonOutput.Location = new System.Drawing.Point(647, 870);
+            this.buttonOutput.Location = new System.Drawing.Point(647, 902);
             this.buttonOutput.Name = "buttonOutput";
             this.buttonOutput.Size = new System.Drawing.Size(237, 119);
             this.buttonOutput.TabIndex = 6;
@@ -104,17 +108,56 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(221, 21);
+            this.label4.Location = new System.Drawing.Point(642, 23);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(70, 25);
+            this.label4.Size = new System.Drawing.Size(98, 25);
             this.label4.TabIndex = 7;
-            this.label4.Text = "label4";
+            this.label4.Text = "Directory";
+            // 
+            // labelFinalQuery
+            // 
+            this.labelFinalQuery.AutoSize = true;
+            this.labelFinalQuery.Location = new System.Drawing.Point(669, 132);
+            this.labelFinalQuery.Name = "labelFinalQuery";
+            this.labelFinalQuery.Size = new System.Drawing.Size(0, 25);
+            this.labelFinalQuery.TabIndex = 8;
+            // 
+            // lableRunTime
+            // 
+            this.lableRunTime.AutoSize = true;
+            this.lableRunTime.Location = new System.Drawing.Point(340, 178);
+            this.lableRunTime.Name = "lableRunTime";
+            this.lableRunTime.Size = new System.Drawing.Size(168, 25);
+            this.lableRunTime.TabIndex = 9;
+            this.lableRunTime.Text = "Searching Time:";
+            // 
+            // labelSearchingTime
+            // 
+            this.labelSearchingTime.AutoSize = true;
+            this.labelSearchingTime.Location = new System.Drawing.Point(660, 178);
+            this.labelSearchingTime.Name = "labelSearchingTime";
+            this.labelSearchingTime.Size = new System.Drawing.Size(59, 25);
+            this.labelSearchingTime.TabIndex = 10;
+            this.labelSearchingTime.Text = "Time";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(340, 23);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(156, 25);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "IndexDirectory:";
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1560, 1074);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.labelSearchingTime);
+            this.Controls.Add(this.lableRunTime);
+            this.Controls.Add(this.labelFinalQuery);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.buttonOutput);
             this.Controls.Add(this.label3);
@@ -143,5 +186,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button buttonOutput;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label labelFinalQuery;
+        private System.Windows.Forms.Label lableRunTime;
+        private System.Windows.Forms.Label labelSearchingTime;
+        private System.Windows.Forms.Label label5;
     }
 }

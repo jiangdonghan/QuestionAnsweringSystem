@@ -26,8 +26,7 @@ namespace KLDQuziAnsnwerSystem
         {
             InitializeComponent();
             
-        }
-        
+        }        
         private void ButtonCollectionSave_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog dialog = new FolderBrowserDialog();
@@ -36,16 +35,12 @@ namespace KLDQuziAnsnwerSystem
             {
                 CollectionDirectoryPath.Text = dialog.SelectedPath;
                 CollectionPath = dialog.SelectedPath;
-            }
-            
-
+            }         
         }
-
         private void Form1_Load(object sender, EventArgs e)
         {
            
-        }
-        
+        }        
         private void ButtonIndexSave_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog dialog = new FolderBrowserDialog();
@@ -59,8 +54,7 @@ namespace KLDQuziAnsnwerSystem
                 
             }
             
-        }
-        
+        }       
         private void IndexCreate_Click(object sender, EventArgs e)
         {
             if (SelectSystem.Checked) {
@@ -71,8 +65,7 @@ namespace KLDQuziAnsnwerSystem
                 myIndex.CleanUpIndexer();
                 DateTime afterDT = System.DateTime.Now;
                 TimeSpan ts = afterDT.Subtract(beforDT);
-                labelTime.Text = "Indexing Time: " + ts.TotalSeconds.ToString() + "s";
-                
+                labelTime.Text = "Indexing Time: " + ts.TotalSeconds.ToString() + "s";               
             }
             else
             {
@@ -84,7 +77,6 @@ namespace KLDQuziAnsnwerSystem
                 DateTime afterDT = System.DateTime.Now;
                 TimeSpan ts = afterDT.Subtract(beforDT);
                 labelTime.Text = "Indexing Time: "+ts.TotalSeconds.ToString() + "s";
-
             }
         }
 
@@ -108,34 +100,37 @@ namespace KLDQuziAnsnwerSystem
         {
             if (SelectSystem.Checked)
             {
-                //TextBox的值
                 string inputValue = IndexDirectoryPath.Text.Trim();
-                //创建窗体
                 Main main = new Main();
-                //委托进行窗体传值
                 main.GetValue = delegate () {
                     return inputValue;
                 };
-                //委托进行获取值
                 main.SendValue = delegate (string a) {
                     this.IndexDirectoryPath.Text = a;
                 };
-                //委托进行获取并传递值
                 main.GetAndSend = delegate (string a) {
                     string formValue = this.IndexDirectoryPath.Text;
                     this.IndexDirectoryPath.Text = a;
                     return formValue;
-                };
-
-                
+                };                
                 this.Close();
-                main.Show();
-               
-
+                main.Show();              
             }
             else
             {
+                string inputValue = IndexDirectoryPath.Text.Trim();
                 NewMain newmain = new NewMain();
+                newmain.GetValue = delegate () {
+                    return inputValue;
+                };
+                newmain.SendValue = delegate (string a) {
+                    this.IndexDirectoryPath.Text = a;
+                };
+                newmain.GetAndSend = delegate (string a) {
+                    string formValue = this.IndexDirectoryPath.Text;
+                    this.IndexDirectoryPath.Text = a;
+                    return formValue;
+                };
                 this.Close();
                 newmain.Show();
             }

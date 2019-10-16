@@ -156,7 +156,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1263, 928);
+            this.ClientSize = new System.Drawing.Size(1256, 917);
             this.Controls.Add(this.buttonGoSearch);
             this.Controls.Add(this.labelTime);
             this.Controls.Add(this.SelectSystem);
