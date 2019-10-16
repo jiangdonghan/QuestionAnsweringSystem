@@ -39,6 +39,12 @@
             this.SelectSystem = new System.Windows.Forms.CheckBox();
             this.labelTime = new System.Windows.Forms.Label();
             this.buttonGoSearch = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBoxPassage = new System.Windows.Forms.TextBox();
+            this.textBoxTitle = new System.Windows.Forms.TextBox();
+            this.checkBoxPassage = new System.Windows.Forms.CheckBox();
+            this.checkBoxTitle = new System.Windows.Forms.CheckBox();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonIndexSave
@@ -152,11 +158,59 @@
             this.buttonGoSearch.UseVisualStyleBackColor = true;
             this.buttonGoSearch.Click += new System.EventHandler(this.Button1_Click);
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.textBoxPassage);
+            this.groupBox2.Controls.Add(this.textBoxTitle);
+            this.groupBox2.Controls.Add(this.checkBoxPassage);
+            this.groupBox2.Controls.Add(this.checkBoxTitle);
+            this.groupBox2.Location = new System.Drawing.Point(592, 134);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(609, 223);
+            this.groupBox2.TabIndex = 12;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Boosting";
+            // 
+            // textBoxPassage
+            // 
+            this.textBoxPassage.Location = new System.Drawing.Point(267, 117);
+            this.textBoxPassage.Name = "textBoxPassage";
+            this.textBoxPassage.Size = new System.Drawing.Size(100, 37);
+            this.textBoxPassage.TabIndex = 3;
+            // 
+            // textBoxTitle
+            // 
+            this.textBoxTitle.Location = new System.Drawing.Point(267, 52);
+            this.textBoxTitle.Name = "textBoxTitle";
+            this.textBoxTitle.Size = new System.Drawing.Size(100, 37);
+            this.textBoxTitle.TabIndex = 2;
+            // 
+            // checkBoxPassage
+            // 
+            this.checkBoxPassage.AutoSize = true;
+            this.checkBoxPassage.Location = new System.Drawing.Point(27, 119);
+            this.checkBoxPassage.Name = "checkBoxPassage";
+            this.checkBoxPassage.Size = new System.Drawing.Size(144, 34);
+            this.checkBoxPassage.TabIndex = 1;
+            this.checkBoxPassage.Text = "Passage";
+            this.checkBoxPassage.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxTitle
+            // 
+            this.checkBoxTitle.AutoSize = true;
+            this.checkBoxTitle.Location = new System.Drawing.Point(27, 54);
+            this.checkBoxTitle.Name = "checkBoxTitle";
+            this.checkBoxTitle.Size = new System.Drawing.Size(94, 34);
+            this.checkBoxTitle.TabIndex = 0;
+            this.checkBoxTitle.Text = "Title";
+            this.checkBoxTitle.UseVisualStyleBackColor = true;
+            // 
             // DirectorySelect
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1256, 917);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.buttonGoSearch);
             this.Controls.Add(this.labelTime);
             this.Controls.Add(this.SelectSystem);
@@ -172,6 +226,8 @@
             this.Text = "Form1";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DirectorySelect_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -189,6 +245,11 @@
         private System.Windows.Forms.CheckBox SelectSystem;
         private System.Windows.Forms.Label labelTime;
         private System.Windows.Forms.Button buttonGoSearch;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox textBoxPassage;
+        private System.Windows.Forms.TextBox textBoxTitle;
+        private System.Windows.Forms.CheckBox checkBoxPassage;
+        private System.Windows.Forms.CheckBox checkBoxTitle;
     }
 }
 

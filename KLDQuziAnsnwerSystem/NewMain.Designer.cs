@@ -29,25 +29,29 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.QueryText = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.labelFinalQuery = new System.Windows.Forms.Label();
-            this.ButtonNewSearch = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.labelSearchingTime = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.labelDocNumber = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.buttonOutput = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.labelSearchingTime = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.ButtonNewSearch = new System.Windows.Forms.Button();
+            this.labelFinalQuery = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.QueryText = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.ResultTextBox = new System.Windows.Forms.RichTextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.labelDocNumber = new System.Windows.Forms.Label();
+            this.checkBoxTitle = new System.Windows.Forms.CheckBox();
+            this.textBoxTitle = new System.Windows.Forms.TextBox();
+            this.checkBoxQueryAsIs = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,17 +68,27 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Enter += new System.EventHandler(this.GroupBox1_Enter);
             // 
-            // groupBox2
+            // label5
             // 
-            this.groupBox2.Location = new System.Drawing.Point(98, 84);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(609, 223);
-            this.groupBox2.TabIndex = 0;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Boosting";
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(347, 38);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(98, 25);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "Directory";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(99, 38);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(156, 25);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Index Directory";
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.checkBoxQueryAsIs);
             this.groupBox3.Controls.Add(this.labelDocNumber);
             this.groupBox3.Controls.Add(this.label6);
             this.groupBox3.Controls.Add(this.buttonOutput);
@@ -93,31 +107,71 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Searching";
             // 
-            // label1
+            // labelDocNumber
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 57);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(76, 25);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Query:";
-            this.label1.Click += new System.EventHandler(this.Label1_Click);
+            this.labelDocNumber.AutoSize = true;
+            this.labelDocNumber.Location = new System.Drawing.Point(330, 393);
+            this.labelDocNumber.Name = "labelDocNumber";
+            this.labelDocNumber.Size = new System.Drawing.Size(87, 25);
+            this.labelDocNumber.TabIndex = 10;
+            this.labelDocNumber.Text = "Number";
             // 
-            // QueryText
+            // label6
             // 
-            this.QueryText.Location = new System.Drawing.Point(206, 57);
-            this.QueryText.Name = "QueryText";
-            this.QueryText.Size = new System.Drawing.Size(228, 31);
-            this.QueryText.TabIndex = 1;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(22, 393);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(281, 25);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "Relevant document number:";
+            this.label6.Click += new System.EventHandler(this.Label6_Click);
             // 
-            // label2
+            // buttonOutput
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(18, 288);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(129, 25);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Final Query:";
+            this.buttonOutput.Location = new System.Drawing.Point(206, 443);
+            this.buttonOutput.Name = "buttonOutput";
+            this.buttonOutput.Size = new System.Drawing.Size(181, 68);
+            this.buttonOutput.TabIndex = 8;
+            this.buttonOutput.Text = "Output Result";
+            this.buttonOutput.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(23, 201);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(280, 29);
+            this.checkBox1.TabIndex = 7;
+            this.checkBox1.Text = "Load WordNet Database";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // labelSearchingTime
+            // 
+            this.labelSearchingTime.AutoSize = true;
+            this.labelSearchingTime.Location = new System.Drawing.Point(330, 335);
+            this.labelSearchingTime.Name = "labelSearchingTime";
+            this.labelSearchingTime.Size = new System.Drawing.Size(59, 25);
+            this.labelSearchingTime.TabIndex = 6;
+            this.labelSearchingTime.Text = "Time";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(18, 335);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(139, 25);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Search Time:";
+            // 
+            // ButtonNewSearch
+            // 
+            this.ButtonNewSearch.Location = new System.Drawing.Point(350, 143);
+            this.ButtonNewSearch.Name = "ButtonNewSearch";
+            this.ButtonNewSearch.Size = new System.Drawing.Size(181, 62);
+            this.ButtonNewSearch.TabIndex = 4;
+            this.ButtonNewSearch.Text = "Search";
+            this.ButtonNewSearch.UseVisualStyleBackColor = true;
+            this.ButtonNewSearch.Click += new System.EventHandler(this.ButtonNewSearch_Click);
             // 
             // labelFinalQuery
             // 
@@ -129,52 +183,43 @@
             this.labelFinalQuery.Text = "Final Query";
             this.labelFinalQuery.Click += new System.EventHandler(this.LabelFinalQuery_Click);
             // 
-            // ButtonNewSearch
+            // label2
             // 
-            this.ButtonNewSearch.Location = new System.Drawing.Point(206, 206);
-            this.ButtonNewSearch.Name = "ButtonNewSearch";
-            this.ButtonNewSearch.Size = new System.Drawing.Size(181, 62);
-            this.ButtonNewSearch.TabIndex = 4;
-            this.ButtonNewSearch.Text = "Search";
-            this.ButtonNewSearch.UseVisualStyleBackColor = true;
-            this.ButtonNewSearch.Click += new System.EventHandler(this.ButtonNewSearch_Click);
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(18, 288);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(129, 25);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Final Query:";
             // 
-            // label3
+            // QueryText
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(18, 335);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(139, 25);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Search Time:";
+            this.QueryText.Location = new System.Drawing.Point(100, 54);
+            this.QueryText.Name = "QueryText";
+            this.QueryText.Size = new System.Drawing.Size(503, 31);
+            this.QueryText.TabIndex = 1;
             // 
-            // labelSearchingTime
+            // label1
             // 
-            this.labelSearchingTime.AutoSize = true;
-            this.labelSearchingTime.Location = new System.Drawing.Point(330, 335);
-            this.labelSearchingTime.Name = "labelSearchingTime";
-            this.labelSearchingTime.Size = new System.Drawing.Size(59, 25);
-            this.labelSearchingTime.TabIndex = 6;
-            this.labelSearchingTime.Text = "Time";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(18, 57);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(76, 25);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Query:";
+            this.label1.Click += new System.EventHandler(this.Label1_Click);
             // 
-            // checkBox1
+            // groupBox2
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(23, 131);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(280, 29);
-            this.checkBox1.TabIndex = 7;
-            this.checkBox1.Text = "Load WordNet Database";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // buttonOutput
-            // 
-            this.buttonOutput.Location = new System.Drawing.Point(206, 443);
-            this.buttonOutput.Name = "buttonOutput";
-            this.buttonOutput.Size = new System.Drawing.Size(181, 68);
-            this.buttonOutput.TabIndex = 8;
-            this.buttonOutput.Text = "Output Result";
-            this.buttonOutput.UseVisualStyleBackColor = true;
+            this.groupBox2.Controls.Add(this.textBoxTitle);
+            this.groupBox2.Controls.Add(this.checkBoxTitle);
+            this.groupBox2.Location = new System.Drawing.Point(98, 117);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(609, 223);
+            this.groupBox2.TabIndex = 0;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Similarity";
+            this.groupBox2.Enter += new System.EventHandler(this.GroupBox2_Enter);
             // 
             // groupBox4
             // 
@@ -195,42 +240,32 @@
             this.ResultTextBox.Text = "";
             this.ResultTextBox.TextChanged += new System.EventHandler(this.ResultTextBox_TextChanged);
             // 
-            // label4
+            // checkBoxTitle
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(99, 38);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(156, 25);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Index Directory";
+            this.checkBoxTitle.AutoSize = true;
+            this.checkBoxTitle.Location = new System.Drawing.Point(27, 94);
+            this.checkBoxTitle.Name = "checkBoxTitle";
+            this.checkBoxTitle.Size = new System.Drawing.Size(131, 29);
+            this.checkBoxTitle.TabIndex = 0;
+            this.checkBoxTitle.Text = "Similarity";
+            this.checkBoxTitle.UseVisualStyleBackColor = true;
             // 
-            // label5
+            // textBoxTitle
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(347, 38);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(98, 25);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "Directory";
+            this.textBoxTitle.Location = new System.Drawing.Point(304, 94);
+            this.textBoxTitle.Name = "textBoxTitle";
+            this.textBoxTitle.Size = new System.Drawing.Size(190, 31);
+            this.textBoxTitle.TabIndex = 2;
             // 
-            // label6
+            // checkBoxQueryAsIs
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(22, 393);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(281, 25);
-            this.label6.TabIndex = 9;
-            this.label6.Text = "Relevant document number:";
-            this.label6.Click += new System.EventHandler(this.Label6_Click);
-            // 
-            // labelDocNumber
-            // 
-            this.labelDocNumber.AutoSize = true;
-            this.labelDocNumber.Location = new System.Drawing.Point(330, 393);
-            this.labelDocNumber.Name = "labelDocNumber";
-            this.labelDocNumber.Size = new System.Drawing.Size(87, 25);
-            this.labelDocNumber.TabIndex = 10;
-            this.labelDocNumber.Text = "Number";
+            this.checkBoxQueryAsIs.AutoSize = true;
+            this.checkBoxQueryAsIs.Location = new System.Drawing.Point(23, 143);
+            this.checkBoxQueryAsIs.Name = "checkBoxQueryAsIs";
+            this.checkBoxQueryAsIs.Size = new System.Drawing.Size(199, 29);
+            this.checkBoxQueryAsIs.TabIndex = 11;
+            this.checkBoxQueryAsIs.Text = "Use Query As Is";
+            this.checkBoxQueryAsIs.UseVisualStyleBackColor = true;
             // 
             // NewMain
             // 
@@ -251,6 +286,8 @@
             this.groupBox1.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -276,5 +313,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label labelDocNumber;
+        private System.Windows.Forms.CheckBox checkBoxTitle;
+        private System.Windows.Forms.TextBox textBoxTitle;
+        private System.Windows.Forms.CheckBox checkBoxQueryAsIs;
     }
 }

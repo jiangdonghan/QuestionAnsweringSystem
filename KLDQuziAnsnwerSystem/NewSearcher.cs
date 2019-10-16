@@ -39,6 +39,7 @@ namespace KLDQuziAnsnwerSystem
         {
             luceneIndexDirectorySearcher = Lucene.Net.Store.FSDirectory.Open(path);
             searcher = new IndexSearcher(luceneIndexDirectorySearcher);
+            searcher.Similarity = new NewSimilarity();
         }
         public void CleanUpSearcher()
         {
@@ -50,6 +51,9 @@ namespace KLDQuziAnsnwerSystem
             Query query = parser.Parse(querytext);
             TopDocs results = searcher.Search(query, 20);
             string finalQuery = query.ToString();
+            string[] querySplit = finalQuery.Split(')');
+            string singleQuery = querySplit[0];
+            singleQuery = singleQuery.Replace("(", string.Empty).Replace("passage_txt", string.Empty).Replace("passage_url", string.Empty).Replace("passage_ID", string.Empty).Replace("Answer", string.Empty).Replace(":",string.Empty);
             string[] str = new string[] { results.TotalHits.ToString(), finalQuery };
             return str;
         }
@@ -111,7 +115,7 @@ namespace KLDQuziAnsnwerSystem
                         title = title.Replace('_', ' ');
                     }
                 }
-                listResult.Add("Rank: " + rank + "     Score: " + scoreDoc.Score + "\r\n" + "Title: " + title + "\r\n" +"Answer: "+myFieldValueAnswer + "\r\n" +  "Text: " + myFieldValueText + "\r\n" + "URL: " + myFieldValueURL + "\r\n");
+                listResult.Add("Rank: " + rank + "     Score: " + scoreDoc.Score +"      passage_id: "+myFieldValuePID+ "\r\n" + "Title: " + title + "\r\n" +"Answer: "+myFieldValueAnswer + "\r\n" +  "Text: " + myFieldValueText + "\r\n" + "URL: " + myFieldValueURL + "\r\n");
                 //listResult.Add("Rank " + rank + " text " + myFieldValue);
             }
             return listResult;

@@ -113,7 +113,7 @@ namespace KLDQuziAnsnwerSystem
                     this.IndexDirectoryPath.Text = a;
                     return formValue;
                 };                
-                this.Close();
+                
                 main.Show();              
             }
             else
@@ -131,7 +131,7 @@ namespace KLDQuziAnsnwerSystem
                     this.IndexDirectoryPath.Text = a;
                     return formValue;
                 };
-                this.Close();
+                
                 newmain.Show();
             }
 

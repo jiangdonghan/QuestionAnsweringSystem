@@ -97,5 +97,15 @@ namespace KLDQuziAnsnwerSystem
         {
 
         }
+
+        private void CheckBox3_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void GroupBox2_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

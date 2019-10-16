@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using Lucene.Net.Analysis; // for Analyser
 using Lucene.Net.Documents; // for document
 using Lucene.Net.Index; //for Index Writer
+using Lucene.Net.Search;
 using Lucene.Net.Store; //for Directory
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -17,6 +18,7 @@ namespace KLDQuziAnsnwerSystem
 
     public class NewIndexer
     {
+        Similarity newSimilarity;
         Lucene.Net.Store.Directory luceneIndexDirectory;
         Lucene.Net.Analysis.Analyzer analyzer;
         Lucene.Net.Index.IndexWriter writer;
@@ -26,6 +28,7 @@ namespace KLDQuziAnsnwerSystem
             luceneIndexDirectory = null; // Is set in Create Index
             analyzer = new Lucene.Net.Analysis.Standard.StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);  // Is set in CreateAnalyser
             writer = null; // Is set in CreateWriter
+            newSimilarity = new NewSimilarity();
         }
         public void OpenIndex(string indexPath)
         {
@@ -34,6 +37,7 @@ namespace KLDQuziAnsnwerSystem
             luceneIndexDirectory = Lucene.Net.Store.FSDirectory.Open(Path);
             IndexWriter.MaxFieldLength mfl = new IndexWriter.MaxFieldLength(IndexWriter.DEFAULT_MAX_FIELD_LENGTH);
             writer = new Lucene.Net.Index.IndexWriter(luceneIndexDirectory, analyzer, true, mfl);
+            writer.SetSimilarity(newSimilarity);
         }
         public void CleanUpIndexer()
         {
@@ -56,7 +60,7 @@ namespace KLDQuziAnsnwerSystem
         }
         public void IndexJsonFile(String path)
         {
-            String jsonPath = path + "/collection.json";
+            String jsonPath = path + "/sample_collection.json";
             JsonSerializer serializer = new JsonSerializer();
             StreamReader sr = new StreamReader(jsonPath);
             JsonReader reader = new JsonTextReader(sr);
