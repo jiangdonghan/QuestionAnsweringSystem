@@ -21,19 +21,18 @@ namespace KLDQuziAnsnwerSystem
         const string TEXT_FN = "passage_txt";
         const string URL_FN = "passage_url";
         const string ANSWER_FN = "Answer";
-        const string QUERY_ID_FN = "Query_ID";
+        const string PASSAGE_ID = "passage_ID";
         
         Lucene.Net.Analysis.Analyzer analyzer;
         Lucene.Net.Store.Directory luceneIndexDirectorySearcher;
         Analyzer analyzer_standard = new Lucene.Net.Analysis.Standard.StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
-        Lucene.Net.Index.IndexWriter writer;
         IndexSearcher searcher;
         MultiFieldQueryParser parser;
         
         public NewSearcher()
         {
             analyzer = analyzer_standard;
-            parser = new MultiFieldQueryParser(Lucene.Net.Util.Version.LUCENE_30,new string[] {TEXT_FN,ANSWER_FN,URL_FN}, analyzer);
+            parser = new MultiFieldQueryParser(Lucene.Net.Util.Version.LUCENE_30,new string[] {TEXT_FN,ANSWER_FN,URL_FN,PASSAGE_ID}, analyzer);
         }
         
         public void CreateSearcher(String path)
@@ -69,6 +68,8 @@ namespace KLDQuziAnsnwerSystem
                 //create a list to store the results
                 rank++;
                 Lucene.Net.Documents.Document doc = searcher.Doc(scoreDoc.Doc);
+                string myFieldValuePID = doc.Get(PASSAGE_ID).ToString();
+                Console.WriteLine(myFieldValuePID);
                 string myFieldValueText = doc.Get(TEXT_FN).ToString();
                 string myFieldValueAnswer = doc.Get(ANSWER_FN).ToString();
                 myFieldValueAnswer = myFieldValueAnswer.Replace("[", string.Empty).Replace("]", string.Empty).Replace("\t", string.Empty).Replace("\r", string.Empty).Replace("\n", string.Empty);

@@ -41,14 +41,14 @@ namespace KLDQuziAnsnwerSystem
             writer.Flush(true, true, true);
             writer.Dispose();
         }
-        public void AddDocument(String queryID, String txt, String url, String answer)
+        public void AddDocument(String passageID, String txt, String url, String answer)
         {
             Document doc = new Document();
-            Field fQueryID = new Field("Query_ID", queryID, Field.Store.NO, Field.Index.ANALYZED);
+            Field fPassageID = new Field("passage_ID", passageID, Field.Store.YES, Field.Index.ANALYZED);
             Field fTxt = new Field("passage_txt", txt, Field.Store.YES, Field.Index.ANALYZED);
             Field fUrl = new Field("passage_url", url, Field.Store.YES, Field.Index.ANALYZED);
             Field fAnswer = new Field("Answer", answer, Field.Store.YES, Field.Index.ANALYZED);
-            doc.Add(fQueryID);
+            doc.Add(fPassageID);
             doc.Add(fTxt);
             doc.Add(fUrl);
             doc.Add(fAnswer);
@@ -68,7 +68,7 @@ namespace KLDQuziAnsnwerSystem
                     collection c = serializer.Deserialize<collection>(reader);
                     foreach (passages p in c.passages)
                     {
-                        AddDocument(c.query_id, p.passage_text, p.url, c.answers.ToString());
+                        AddDocument(p.passage_ID, p.passage_text, p.url, c.answers.ToString());
                     }
                 }
             }
