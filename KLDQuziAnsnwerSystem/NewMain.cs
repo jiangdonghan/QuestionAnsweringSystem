@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace KLDQuziAnsnwerSystem
 {
     public partial class NewMain : Form
     {
+        int TopicID = 0;
         public NewMain()
         {
             InitializeComponent();
@@ -38,7 +40,7 @@ namespace KLDQuziAnsnwerSystem
 
         private void NewMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (MessageBox.Show("Continue to close the application?", "Ask", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("Do you want to go back to directoryselect page?", "Ask", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 e.Cancel = false;
             }
@@ -50,15 +52,13 @@ namespace KLDQuziAnsnwerSystem
 
         private void NewMain_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Application.Exit();
+            
         }
 
         private void ButtonNewSearch_Click(object sender, EventArgs e)
         {
-            DateTime beforDT = System.DateTime.Now;
-            
-            String path = label5.Text;
-            
+            DateTime beforDT = System.DateTime.Now;            
+            String path = label5.Text;          
             NewSearcher newSearcher = new NewSearcher();
             newSearcher.CreateSearcher(path);
             String queryText = QueryText.Text;
@@ -82,30 +82,23 @@ namespace KLDQuziAnsnwerSystem
             labelSearchingTime.Text = ts.TotalSeconds.ToString() + "s";
             newSearcher.CleanUpSearcher();
         }
-
-        private void ResultTextBox_TextChanged(object sender, EventArgs e)
+        private void ButtonOutput_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void LabelFinalQuery_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void CheckBox3_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void GroupBox2_Enter(object sender, EventArgs e)
-        {
-
-        }
+            String path = label5.Text;
+            TopicID++;
+            String TopicIDString = "00"+TopicID.ToString();
+            String queryText = QueryText.Text;
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            dialog.Description = "Choose a path to save output";
+            
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                string foldPath = dialog.SelectedPath;
+                NewSearcher newsearcher = new NewSearcher();
+                newsearcher.CreateSearcher(path);
+                newsearcher.outputResult(TopicIDString, queryText, foldPath);
+                MessageBox.Show("Result Successfully Saved");
+            }                     
+        }       
     }
 }

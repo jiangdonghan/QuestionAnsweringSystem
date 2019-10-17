@@ -12,6 +12,7 @@ using Lucene.Net.QueryParsers;  // for QueryParser
 using Lucene.Net.Analysis.Snowball; // for snowball analyser 
 using System.Text.RegularExpressions;
 using System.Net;
+using System.IO;
 
 namespace KLDQuziAnsnwerSystem
 {
@@ -57,14 +58,33 @@ namespace KLDQuziAnsnwerSystem
             string[] str = new string[] { results.TotalHits.ToString(), finalQuery };
             return str;
         }
+        public void outputResult(string TopicID,string querytext,string filePath)
+        {
+            string textPath = filePath + @"\" + TopicID + ".txt";
+            Console.WriteLine("dd:  " + textPath);
+            FileStream fs1 = new FileStream(textPath, FileMode.Create, FileAccess.Write);
+            //System.IO.File.SetAttributes(textPath, FileAttributes.Hidden);
+            StreamWriter sw = new StreamWriter(fs1);
+            querytext = querytext.ToLower();
+            Query query = parser.Parse(querytext);
+            TopDocs results = searcher.Search(query, 20);
+            int rank = 0;
+            foreach (ScoreDoc scoreDoc in results.ScoreDocs)
+            {
+                rank++;
+                Lucene.Net.Documents.Document doc = searcher.Doc(scoreDoc.Doc);
+                string myFieldValuePID = doc.Get(PASSAGE_ID).ToString();                
+                sw.WriteLine("{0,-4} {1,-4} {2,-7} {3,-5} {4,-11} {5}", TopicID, "Q0", myFieldValuePID, rank, scoreDoc.Score, "n10075615_n_n_Team");
+            }          
+            sw.Close();
+            fs1.Close();
+        }
         public List<string> SearchText(string querytext)
         {
             querytext = querytext.ToLower();
-            Query query = parser.Parse(querytext);
-            
+            Query query = parser.Parse(querytext);         
             Console.WriteLine(query.ToString());
             TopDocs results = searcher.Search(query, 20);
-            System.Console.WriteLine("Number of results is " + results.TotalHits);
             int rank = 0;
             List<string> listResult = new List<string>();
             foreach (ScoreDoc scoreDoc in results.ScoreDocs)
@@ -73,7 +93,6 @@ namespace KLDQuziAnsnwerSystem
                 rank++;
                 Lucene.Net.Documents.Document doc = searcher.Doc(scoreDoc.Doc);
                 string myFieldValuePID = doc.Get(PASSAGE_ID).ToString();
-                Console.WriteLine(myFieldValuePID);
                 string myFieldValueText = doc.Get(TEXT_FN).ToString();
                 string myFieldValueAnswer = doc.Get(ANSWER_FN).ToString();
                 myFieldValueAnswer = myFieldValueAnswer.Replace("[", string.Empty).Replace("]", string.Empty).Replace("\t", string.Empty).Replace("\r", string.Empty).Replace("\n", string.Empty);

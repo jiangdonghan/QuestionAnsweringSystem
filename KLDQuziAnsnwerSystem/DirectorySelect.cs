@@ -80,22 +80,7 @@ namespace KLDQuziAnsnwerSystem
             }
         }
 
-        private void Label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void DirectorySelect_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            
-        }
-
-        private void CheckBox1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
         public delegate void setTextValue(string textValue);
-        public event setTextValue setFormTextValue;
         private void Button1_Click(object sender, EventArgs e)
         {
             if (SelectSystem.Checked)
@@ -136,6 +121,23 @@ namespace KLDQuziAnsnwerSystem
             }
 
 
+        }
+
+        private void DirectorySelect_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void DirectorySelect_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("Close ?", "Ask", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                e.Cancel = false;
+            }
+            else
+            {
+                e.Cancel = true;
+            }
         }
     }
 }

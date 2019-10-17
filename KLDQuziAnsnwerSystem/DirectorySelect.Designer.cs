@@ -126,7 +126,6 @@
             this.label1.Size = new System.Drawing.Size(449, 48);
             this.label1.TabIndex = 8;
             this.label1.Text = "Step 1: Selecting paths";
-            this.label1.Click += new System.EventHandler(this.Label1_Click);
             // 
             // SelectSystem
             // 
@@ -137,7 +136,6 @@
             this.SelectSystem.TabIndex = 9;
             this.SelectSystem.Text = "Use baseline system";
             this.SelectSystem.UseVisualStyleBackColor = true;
-            this.SelectSystem.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
             // 
             // labelTime
             // 
@@ -224,6 +222,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "DirectorySelect";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DirectorySelect_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DirectorySelect_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox2.ResumeLayout(false);

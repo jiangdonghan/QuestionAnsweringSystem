@@ -20,7 +20,7 @@ namespace KLDQuziAnsnwerSystem
         }
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (MessageBox.Show("Continue to close the application?", "Ask", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("Do you want to go back to directoryselect page ?", "Ask", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 e.Cancel = false;
             }
@@ -32,7 +32,7 @@ namespace KLDQuziAnsnwerSystem
         }
         private void Main_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Application.Exit();
+            
         }
 
        

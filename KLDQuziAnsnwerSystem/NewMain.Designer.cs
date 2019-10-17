@@ -32,6 +32,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.checkBoxQueryAsIs = new System.Windows.Forms.CheckBox();
             this.labelDocNumber = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.buttonOutput = new System.Windows.Forms.Button();
@@ -46,9 +47,9 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.ResultTextBox = new System.Windows.Forms.RichTextBox();
-            this.checkBoxTitle = new System.Windows.Forms.CheckBox();
-            this.textBoxTitle = new System.Windows.Forms.TextBox();
-            this.checkBoxQueryAsIs = new System.Windows.Forms.CheckBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.saveFileDialogOutput = new System.Windows.Forms.SaveFileDialog();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -107,6 +108,16 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Searching";
             // 
+            // checkBoxQueryAsIs
+            // 
+            this.checkBoxQueryAsIs.AutoSize = true;
+            this.checkBoxQueryAsIs.Location = new System.Drawing.Point(23, 143);
+            this.checkBoxQueryAsIs.Name = "checkBoxQueryAsIs";
+            this.checkBoxQueryAsIs.Size = new System.Drawing.Size(199, 29);
+            this.checkBoxQueryAsIs.TabIndex = 11;
+            this.checkBoxQueryAsIs.Text = "Use Query As Is";
+            this.checkBoxQueryAsIs.UseVisualStyleBackColor = true;
+            // 
             // labelDocNumber
             // 
             this.labelDocNumber.AutoSize = true;
@@ -124,7 +135,7 @@
             this.label6.Size = new System.Drawing.Size(281, 25);
             this.label6.TabIndex = 9;
             this.label6.Text = "Relevant document number:";
-            this.label6.Click += new System.EventHandler(this.Label6_Click);
+           
             // 
             // buttonOutput
             // 
@@ -134,6 +145,7 @@
             this.buttonOutput.TabIndex = 8;
             this.buttonOutput.Text = "Output Result";
             this.buttonOutput.UseVisualStyleBackColor = true;
+            this.buttonOutput.Click += new System.EventHandler(this.ButtonOutput_Click);
             // 
             // checkBox1
             // 
@@ -181,7 +193,7 @@
             this.labelFinalQuery.Size = new System.Drawing.Size(123, 25);
             this.labelFinalQuery.TabIndex = 3;
             this.labelFinalQuery.Text = "Final Query";
-            this.labelFinalQuery.Click += new System.EventHandler(this.LabelFinalQuery_Click);
+            
             // 
             // label2
             // 
@@ -211,15 +223,15 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.textBoxTitle);
-            this.groupBox2.Controls.Add(this.checkBoxTitle);
+            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Location = new System.Drawing.Point(98, 117);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(609, 223);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Similarity";
-            this.groupBox2.Enter += new System.EventHandler(this.GroupBox2_Enter);
+            
             // 
             // groupBox4
             // 
@@ -238,34 +250,29 @@
             this.ResultTextBox.Size = new System.Drawing.Size(790, 968);
             this.ResultTextBox.TabIndex = 0;
             this.ResultTextBox.Text = "";
-            this.ResultTextBox.TextChanged += new System.EventHandler(this.ResultTextBox_TextChanged);
+            
             // 
-            // checkBoxTitle
+            // label7
             // 
-            this.checkBoxTitle.AutoSize = true;
-            this.checkBoxTitle.Location = new System.Drawing.Point(27, 94);
-            this.checkBoxTitle.Name = "checkBoxTitle";
-            this.checkBoxTitle.Size = new System.Drawing.Size(131, 29);
-            this.checkBoxTitle.TabIndex = 0;
-            this.checkBoxTitle.Text = "Similarity";
-            this.checkBoxTitle.UseVisualStyleBackColor = true;
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(58, 100);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(105, 25);
+            this.label7.TabIndex = 3;
+            this.label7.Text = "Similarity:";
             // 
-            // textBoxTitle
+            // label8
             // 
-            this.textBoxTitle.Location = new System.Drawing.Point(304, 94);
-            this.textBoxTitle.Name = "textBoxTitle";
-            this.textBoxTitle.Size = new System.Drawing.Size(190, 31);
-            this.textBoxTitle.TabIndex = 2;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(254, 100);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(171, 25);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "Overriding tf to 1";
             // 
-            // checkBoxQueryAsIs
+            // saveFileDialogOutput
             // 
-            this.checkBoxQueryAsIs.AutoSize = true;
-            this.checkBoxQueryAsIs.Location = new System.Drawing.Point(23, 143);
-            this.checkBoxQueryAsIs.Name = "checkBoxQueryAsIs";
-            this.checkBoxQueryAsIs.Size = new System.Drawing.Size(199, 29);
-            this.checkBoxQueryAsIs.TabIndex = 11;
-            this.checkBoxQueryAsIs.Text = "Use Query As Is";
-            this.checkBoxQueryAsIs.UseVisualStyleBackColor = true;
+          
             // 
             // NewMain
             // 
@@ -313,8 +320,9 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label labelDocNumber;
-        private System.Windows.Forms.CheckBox checkBoxTitle;
-        private System.Windows.Forms.TextBox textBoxTitle;
         private System.Windows.Forms.CheckBox checkBoxQueryAsIs;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.SaveFileDialog saveFileDialogOutput;
     }
 }
