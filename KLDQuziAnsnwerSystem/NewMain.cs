@@ -64,6 +64,7 @@ namespace KLDQuziAnsnwerSystem
             String queryText = QueryText.Text;
             string[] str = newSearcher.GetFinalqueryAndNumberofDocument(queryText);
             labelDocNumber.Text = str[0];
+            labelFinalQuery.Text = str[1];
             List<String> listResult = newSearcher.SearchText(queryText);
             
             ResultTextBox.Lines = listResult.ToArray();
@@ -76,7 +77,6 @@ namespace KLDQuziAnsnwerSystem
                 ResultTextBox.SelectionBackColor = Color.Red;
                 index = ResultTextBox.Text.IndexOf(queryText, index) + 1;
             }
-            labelFinalQuery.Text = queryText;
             DateTime afterDT = System.DateTime.Now;
             TimeSpan ts = afterDT.Subtract(beforDT);
             labelSearchingTime.Text = ts.TotalSeconds.ToString() + "s";

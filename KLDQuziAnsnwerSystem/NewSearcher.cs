@@ -53,17 +53,29 @@ namespace KLDQuziAnsnwerSystem
             TopDocs results = searcher.Search(query, 20);
             string finalQuery = query.ToString();
             string[] querySplit = finalQuery.Split(')');
-            string singleQuery = querySplit[0];
-            singleQuery = singleQuery.Replace("(", string.Empty).Replace("passage_txt", string.Empty).Replace("passage_url", string.Empty).Replace("passage_ID", string.Empty).Replace("Answer", string.Empty).Replace(":",string.Empty);
+    
+            for(int i = 0; i < querySplit.Length; i++)
+            {
+                querySplit[i] = querySplit[i].Replace("(", string.Empty).Replace("passage_txt", string.Empty).Replace("passage_url", string.Empty).Replace("passage_ID", string.Empty).Replace("Answer", string.Empty).Replace(":", string.Empty).Replace("\t", string.Empty).Replace("\r", string.Empty).Replace("\n", string.Empty);
+            }
+            finalQuery = "";
+            for (int i = 0; i < querySplit.Length; i++)
+            {
+                finalQuery += querySplit[i];
+            }
+            string[] ss = finalQuery.Split(' ');
+            finalQuery = "";
+            for(int i = 0; i < ss.Length; i += 4)
+            {
+                finalQuery += (ss[i]+" ");
+            }
             string[] str = new string[] { results.TotalHits.ToString(), finalQuery };
             return str;
         }
         public void outputResult(string TopicID,string querytext,string filePath)
         {
             string textPath = filePath + @"\" + TopicID + ".txt";
-            Console.WriteLine("dd:  " + textPath);
             FileStream fs1 = new FileStream(textPath, FileMode.Create, FileAccess.Write);
-            //System.IO.File.SetAttributes(textPath, FileAttributes.Hidden);
             StreamWriter sw = new StreamWriter(fs1);
             querytext = querytext.ToLower();
             Query query = parser.Parse(querytext);

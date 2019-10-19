@@ -60,7 +60,7 @@ namespace KLDQuziAnsnwerSystem
         }
         public void IndexJsonFile(String path)
         {
-            String jsonPath = path + "/collection.json";
+            String jsonPath = path + "/sample_collection.json";
             JsonSerializer serializer = new JsonSerializer();
             StreamReader sr = new StreamReader(jsonPath);
             JsonReader reader = new JsonTextReader(sr);
