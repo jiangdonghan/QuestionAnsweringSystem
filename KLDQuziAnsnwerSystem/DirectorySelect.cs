@@ -29,12 +29,12 @@ namespace KLDQuziAnsnwerSystem
         }        
         private void ButtonCollectionSave_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog dialog = new FolderBrowserDialog();
-            dialog.Description = "Please choose the file path for collection";
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "json files (*.json)|*.json|All files (*.*)|*.*";
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                CollectionDirectoryPath.Text = dialog.SelectedPath;
-                CollectionPath = dialog.SelectedPath;
+                CollectionDirectoryPath.Text = dialog.FileName;
+                CollectionPath = dialog.FileName;
             }         
         }
         private void Form1_Load(object sender, EventArgs e)
