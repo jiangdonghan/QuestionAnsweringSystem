@@ -16,7 +16,7 @@ namespace KLDQuziAnsnwerSystem
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            new DirectorySelect().Show();
+            new NewMain().Show();
             Application.Run();
         }
     }

@@ -139,5 +139,20 @@ namespace KLDQuziAnsnwerSystem
                 e.Cancel = true;
             }
         }
+
+        private void IndexDirectoryPath_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SelectSystem_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LabelTime_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -85,9 +85,10 @@
             this.IndexDirectoryPath.Location = new System.Drawing.Point(48, 111);
             this.IndexDirectoryPath.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.IndexDirectoryPath.Name = "IndexDirectoryPath";
-            this.IndexDirectoryPath.Size = new System.Drawing.Size(243, 30);
+            this.IndexDirectoryPath.Size = new System.Drawing.Size(127, 16);
             this.IndexDirectoryPath.TabIndex = 5;
             this.IndexDirectoryPath.Text = "Index Directory Path";
+            this.IndexDirectoryPath.Click += new System.EventHandler(this.IndexDirectoryPath_Click);
             // 
             // CollectionDirectoryPath
             // 
@@ -97,7 +98,7 @@
             this.CollectionDirectoryPath.Location = new System.Drawing.Point(47, 257);
             this.CollectionDirectoryPath.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.CollectionDirectoryPath.Name = "CollectionDirectoryPath";
-            this.CollectionDirectoryPath.Size = new System.Drawing.Size(296, 30);
+            this.CollectionDirectoryPath.Size = new System.Drawing.Size(154, 16);
             this.CollectionDirectoryPath.TabIndex = 6;
             this.CollectionDirectoryPath.Text = "Collection Directory Path";
             // 
@@ -123,7 +124,7 @@
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
             this.label1.Location = new System.Drawing.Point(47, 36);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(449, 48);
+            this.label1.Size = new System.Drawing.Size(234, 25);
             this.label1.TabIndex = 8;
             this.label1.Text = "Step 1: Selecting paths";
             // 
@@ -132,19 +133,21 @@
             this.SelectSystem.AutoSize = true;
             this.SelectSystem.Location = new System.Drawing.Point(829, 49);
             this.SelectSystem.Name = "SelectSystem";
-            this.SelectSystem.Size = new System.Drawing.Size(282, 34);
+            this.SelectSystem.Size = new System.Drawing.Size(153, 20);
             this.SelectSystem.TabIndex = 9;
             this.SelectSystem.Text = "Use baseline system";
             this.SelectSystem.UseVisualStyleBackColor = true;
+            this.SelectSystem.CheckedChanged += new System.EventHandler(this.SelectSystem_CheckedChanged);
             // 
             // labelTime
             // 
             this.labelTime.AutoSize = true;
             this.labelTime.Location = new System.Drawing.Point(557, 442);
             this.labelTime.Name = "labelTime";
-            this.labelTime.Size = new System.Drawing.Size(179, 30);
+            this.labelTime.Size = new System.Drawing.Size(95, 16);
             this.labelTime.TabIndex = 10;
             this.labelTime.Text = "Indexing Time:";
+            this.labelTime.Click += new System.EventHandler(this.LabelTime_Click);
             // 
             // buttonGoSearch
             // 
@@ -173,14 +176,14 @@
             // 
             this.textBoxPassage.Location = new System.Drawing.Point(267, 117);
             this.textBoxPassage.Name = "textBoxPassage";
-            this.textBoxPassage.Size = new System.Drawing.Size(100, 37);
+            this.textBoxPassage.Size = new System.Drawing.Size(100, 22);
             this.textBoxPassage.TabIndex = 3;
             // 
             // textBoxTitle
             // 
             this.textBoxTitle.Location = new System.Drawing.Point(267, 52);
             this.textBoxTitle.Name = "textBoxTitle";
-            this.textBoxTitle.Size = new System.Drawing.Size(100, 37);
+            this.textBoxTitle.Size = new System.Drawing.Size(100, 22);
             this.textBoxTitle.TabIndex = 2;
             // 
             // checkBoxPassage
@@ -188,7 +191,7 @@
             this.checkBoxPassage.AutoSize = true;
             this.checkBoxPassage.Location = new System.Drawing.Point(27, 119);
             this.checkBoxPassage.Name = "checkBoxPassage";
-            this.checkBoxPassage.Size = new System.Drawing.Size(144, 34);
+            this.checkBoxPassage.Size = new System.Drawing.Size(82, 20);
             this.checkBoxPassage.TabIndex = 1;
             this.checkBoxPassage.Text = "Passage";
             this.checkBoxPassage.UseVisualStyleBackColor = true;
@@ -198,16 +201,16 @@
             this.checkBoxTitle.AutoSize = true;
             this.checkBoxTitle.Location = new System.Drawing.Point(27, 54);
             this.checkBoxTitle.Name = "checkBoxTitle";
-            this.checkBoxTitle.Size = new System.Drawing.Size(94, 34);
+            this.checkBoxTitle.Size = new System.Drawing.Size(53, 20);
             this.checkBoxTitle.TabIndex = 0;
             this.checkBoxTitle.Text = "Title";
             this.checkBoxTitle.UseVisualStyleBackColor = true;
             // 
             // DirectorySelect
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 30F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1256, 917);
+            this.ClientSize = new System.Drawing.Size(1256, 749);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.buttonGoSearch);
             this.Controls.Add(this.labelTime);

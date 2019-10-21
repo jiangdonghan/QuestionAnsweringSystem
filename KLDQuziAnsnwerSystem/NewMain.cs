@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Lucene.Net.Analysis;
 
 namespace KLDQuziAnsnwerSystem
 {
@@ -23,9 +24,19 @@ namespace KLDQuziAnsnwerSystem
         public Action<string> SendValue;
 
         public Func<string, string> GetAndSend;
+
+        Main f2 = new Main();
+        String IndexPath;
+        String CollectionPath;
+        const Lucene.Net.Util.Version VERSION = Lucene.Net.Util.Version.LUCENE_30;
+
+        Lucene.Net.Analysis.Analyzer analyzer_simple = new Lucene.Net.Analysis.SimpleAnalyzer();
+        Analyzer analyzer_standard = new Lucene.Net.Analysis.Standard.StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
+        Analyzer analyzer_snowball = new Lucene.Net.Analysis.Snowball.SnowballAnalyzer(Lucene.Net.Util.Version.LUCENE_30, "English");
+
         private void NewMain_Load(object sender, EventArgs e)
         {
-            label5.Text = this.GetValue();
+            //label5.Text = this.GetValue();
         }
 
         private void GroupBox1_Enter(object sender, EventArgs e)
@@ -58,7 +69,7 @@ namespace KLDQuziAnsnwerSystem
         private void ButtonNewSearch_Click(object sender, EventArgs e)
         {
             DateTime beforDT = System.DateTime.Now;            
-            String path = label5.Text;          
+            String path = IndexPath;          
             NewSearcher newSearcher = new NewSearcher();
             newSearcher.CreateSearcher(path);
             String queryText = QueryText.Text;
@@ -84,7 +95,7 @@ namespace KLDQuziAnsnwerSystem
         }
         private void ButtonOutput_Click(object sender, EventArgs e)
         {
-            String path = label5.Text;
+            String path = IndexPath;
             TopicID++;
             String TopicIDString = "00"+TopicID.ToString();
             String queryText = QueryText.Text;
@@ -99,6 +110,72 @@ namespace KLDQuziAnsnwerSystem
                 newsearcher.outputResult(TopicIDString, queryText, foldPath);
                 MessageBox.Show("Result Successfully Saved");
             }                     
-        }       
+        }
+
+        private void ButtonIndexSave_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            dialog.Description = "please choose the file path for lucene index";
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+
+                IndexDirectoryPath.Text = dialog.SelectedPath;
+                IndexPath = dialog.SelectedPath;
+
+            }
+        }
+
+        private void Label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CheckBoxPassage_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ButtonCollectionSave_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "json files (*.json)|*.json|All files (*.*)|*.*";
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                CollectionDirectoryPath.Text = dialog.FileName;
+                CollectionPath = dialog.FileName;
+            }
+        }
+
+        private void IndexCreate_Click(object sender, EventArgs e)
+        {
+            if (SelectSystem.Checked)
+            {
+                DateTime beforDT = System.DateTime.Now;
+                Indexer myIndex = new Indexer(analyzer_simple);
+                myIndex.OpenIndex(IndexPath);
+                myIndex.IndexJsonFile(CollectionPath);
+                myIndex.CleanUpIndexer();
+                DateTime afterDT = System.DateTime.Now;
+                TimeSpan ts = afterDT.Subtract(beforDT);
+                labelTime.Text = "Indexing Time: " + ts.TotalSeconds.ToString() + "s";
+            }
+            else
+            {
+                DateTime beforDT = System.DateTime.Now;
+                NewIndexer myIndex = new NewIndexer();
+                myIndex.OpenIndex(IndexPath);
+                myIndex.IndexJsonFile(CollectionPath);
+                myIndex.CleanUpIndexer();
+                DateTime afterDT = System.DateTime.Now;
+                TimeSpan ts = afterDT.Subtract(beforDT);
+                labelTime.Text = "Indexing Time: " + ts.TotalSeconds.ToString() + "s";
+            }
+        }
     }
 }
