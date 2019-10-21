@@ -59,7 +59,6 @@
             this.labelTime = new System.Windows.Forms.Label();
             this.SelectSystem = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.QueryExpansionCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -125,7 +124,6 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.QueryExpansionCheckBox);
             this.groupBox3.Controls.Add(this.checkBoxQueryAsIs);
             this.groupBox3.Controls.Add(this.labelDocNumber);
             this.groupBox3.Controls.Add(this.label6);
@@ -160,17 +158,16 @@
             // labelDocNumber
             // 
             this.labelDocNumber.AutoSize = true;
-            this.labelDocNumber.Location = new System.Drawing.Point(257, 176);
+            this.labelDocNumber.Location = new System.Drawing.Point(125, 122);
             this.labelDocNumber.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelDocNumber.Name = "labelDocNumber";
-            this.labelDocNumber.Size = new System.Drawing.Size(47, 13);
+            this.labelDocNumber.Size = new System.Drawing.Size(0, 13);
             this.labelDocNumber.TabIndex = 10;
-            this.labelDocNumber.Text = "Number";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(140, 176);
+            this.label6.Location = new System.Drawing.Point(11, 122);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(113, 13);
@@ -192,7 +189,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(163, 88);
+            this.checkBox1.Location = new System.Drawing.Point(158, 90);
             this.checkBox1.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(147, 17);
@@ -203,17 +200,16 @@
             // labelSearchingTime
             // 
             this.labelSearchingTime.AutoSize = true;
-            this.labelSearchingTime.Location = new System.Drawing.Point(84, 176);
+            this.labelSearchingTime.Location = new System.Drawing.Point(218, 21);
             this.labelSearchingTime.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelSearchingTime.Name = "labelSearchingTime";
-            this.labelSearchingTime.Size = new System.Drawing.Size(33, 13);
+            this.labelSearchingTime.Size = new System.Drawing.Size(0, 13);
             this.labelSearchingTime.TabIndex = 6;
-            this.labelSearchingTime.Text = "Time";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 175);
+            this.label3.Location = new System.Drawing.Point(149, 21);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(74, 13);
@@ -281,7 +277,7 @@
             this.buttonIndexSave.Location = new System.Drawing.Point(49, 86);
             this.buttonIndexSave.Margin = new System.Windows.Forms.Padding(2);
             this.buttonIndexSave.Name = "buttonIndexSave";
-            this.buttonIndexSave.Size = new System.Drawing.Size(221, 37);
+            this.buttonIndexSave.Size = new System.Drawing.Size(231, 37);
             this.buttonIndexSave.TabIndex = 5;
             this.buttonIndexSave.Text = "SELECT LUCENE INDEX DIRECTORY";
             this.buttonIndexSave.UseVisualStyleBackColor = false;
@@ -319,7 +315,7 @@
             this.CollectionDirectoryPath.AutoSize = true;
             this.CollectionDirectoryPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CollectionDirectoryPath.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
-            this.CollectionDirectoryPath.Location = new System.Drawing.Point(46, 139);
+            this.CollectionDirectoryPath.Location = new System.Drawing.Point(46, 140);
             this.CollectionDirectoryPath.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.CollectionDirectoryPath.Name = "CollectionDirectoryPath";
             this.CollectionDirectoryPath.Size = new System.Drawing.Size(97, 16);
@@ -418,16 +414,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Enter += new System.EventHandler(this.GroupBox1_Enter);
             // 
-            // QueryExpansionCheckBox
-            // 
-            this.QueryExpansionCheckBox.AutoSize = true;
-            this.QueryExpansionCheckBox.Location = new System.Drawing.Point(12, 123);
-            this.QueryExpansionCheckBox.Name = "QueryExpansionCheckBox";
-            this.QueryExpansionCheckBox.Size = new System.Drawing.Size(93, 17);
-            this.QueryExpansionCheckBox.TabIndex = 12;
-            this.QueryExpansionCheckBox.Text = "Expand Query";
-            this.QueryExpansionCheckBox.UseVisualStyleBackColor = true;
-            // 
             // NewMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -440,7 +426,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "NewMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "NewMain";
+            this.Text = "Search Documents";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.NewMain_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.NewMain_FormClosed);
             this.Load += new System.EventHandler(this.NewMain_Load);
@@ -488,6 +474,5 @@
         private System.Windows.Forms.Label labelTime;
         private System.Windows.Forms.CheckBox SelectSystem;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.CheckBox QueryExpansionCheckBox;
     }
 }

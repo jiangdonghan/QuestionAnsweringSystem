@@ -17,6 +17,9 @@ namespace KLDQuziAnsnwerSystem
         int TopicID = 0;
         public static float titleBoost = 1;
         public static float passageBoost = 1;
+
+        public static bool IndexCollection = false;
+
         public NewMain()
         {
             InitializeComponent();
@@ -87,8 +90,10 @@ namespace KLDQuziAnsnwerSystem
             if (PassageBoostCheckBox.Checked)
                 passageBoost = float.Parse(PassageBoostBox.Text);
 
-            // call indexer
-            indexerFunc();
+            // check the flag for re-indexing
+            if (!IndexCollection)
+                // call indexer
+                indexerFunc();
 
             newSearcher.CreateSearcher(path);
             String queryText = QueryText.Text;
@@ -150,19 +155,6 @@ namespace KLDQuziAnsnwerSystem
 
         }
 
-        private void CheckBoxPassage_CheckedChanged(object sender, EventArgs e)
-        {
-            if (PassageBoostCheckBox.Checked)
-            {
-                PassageBoostBox.Enabled = true;
-            }
-            else
-            {
-                PassageBoostBox.Enabled = false;
-                passageBoost = 1;
-            }
-        }
-
         private void Label5_Click(object sender, EventArgs e)
         {
 
@@ -179,7 +171,7 @@ namespace KLDQuziAnsnwerSystem
             }
         }
 
-        public void indexerFunc() {
+        public void indexerFunc() {            
             if (SelectSystem.Checked)
             {
                 DateTime beforDT = System.DateTime.Now;
@@ -202,6 +194,8 @@ namespace KLDQuziAnsnwerSystem
                 TimeSpan ts = afterDT.Subtract(beforDT);
                 labelTime.Text = "Indexing Time: " + ts.TotalSeconds.ToString() + "s";
             }
+
+            IndexCollection = true;
         }
 
         private void IndexCreate_Click(object sender, EventArgs e)
@@ -261,11 +255,28 @@ namespace KLDQuziAnsnwerSystem
 
         }
 
+        private void CheckBoxPassage_CheckedChanged(object sender, EventArgs e)
+        {
+            if (PassageBoostCheckBox.Checked)
+            {
+                PassageBoostBox.Enabled = true;
+
+                IndexCollection = false;
+            }
+            else
+            {
+                PassageBoostBox.Enabled = false;
+                passageBoost = 1;
+            }
+        }
+
         private void CheckBoxTitle_CheckedChanged(object sender, EventArgs e)
         {
             if (TitleBoostCheckBox.Checked)
             {
                 TitleBoostBox.Enabled = true;
+
+                IndexCollection = false;
             }
             else
             {
