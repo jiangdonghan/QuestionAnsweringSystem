@@ -15,9 +15,17 @@ namespace KLDQuziAnsnwerSystem
     public partial class NewMain : Form
     {
         int TopicID = 0;
+        public static float titleBoost = 1;
+        public static float passageBoost = 1;
         public NewMain()
         {
             InitializeComponent();
+
+            TitleBoostBox.Enabled = false;
+            PassageBoostBox.Enabled = false;
+
+            TitleBoostBox.Text = "1.0";
+            PassageBoostBox.Text = "1.0";
         }
         public Func<string> GetValue;
 
@@ -68,9 +76,20 @@ namespace KLDQuziAnsnwerSystem
 
         private void ButtonNewSearch_Click(object sender, EventArgs e)
         {
+            
             DateTime beforDT = System.DateTime.Now;            
             String path = IndexPath;          
             NewSearcher newSearcher = new NewSearcher();
+
+            if (TitleBoostCheckBox.Checked)
+                titleBoost = float.Parse(TitleBoostBox.Text);
+
+            if (PassageBoostCheckBox.Checked)
+                passageBoost = float.Parse(PassageBoostBox.Text);
+
+            // call indexer
+            indexerFunc();
+
             newSearcher.CreateSearcher(path);
             String queryText = QueryText.Text;
             string[] str = newSearcher.GetFinalqueryAndNumberofDocument(queryText);
@@ -133,7 +152,15 @@ namespace KLDQuziAnsnwerSystem
 
         private void CheckBoxPassage_CheckedChanged(object sender, EventArgs e)
         {
-
+            if (PassageBoostCheckBox.Checked)
+            {
+                PassageBoostBox.Enabled = true;
+            }
+            else
+            {
+                PassageBoostBox.Enabled = false;
+                passageBoost = 1;
+            }
         }
 
         private void Label5_Click(object sender, EventArgs e)
@@ -152,8 +179,7 @@ namespace KLDQuziAnsnwerSystem
             }
         }
 
-        private void IndexCreate_Click(object sender, EventArgs e)
-        {
+        public void indexerFunc() {
             if (SelectSystem.Checked)
             {
                 DateTime beforDT = System.DateTime.Now;
@@ -175,6 +201,76 @@ namespace KLDQuziAnsnwerSystem
                 DateTime afterDT = System.DateTime.Now;
                 TimeSpan ts = afterDT.Subtract(beforDT);
                 labelTime.Text = "Indexing Time: " + ts.TotalSeconds.ToString() + "s";
+            }
+        }
+
+        private void IndexCreate_Click(object sender, EventArgs e)
+        {
+            //if (SelectSystem.Checked)
+            //{
+            //    DateTime beforDT = System.DateTime.Now;
+            //    Indexer myIndex = new Indexer(analyzer_simple);
+            //    myIndex.OpenIndex(IndexPath);
+            //    myIndex.IndexJsonFile(CollectionPath);
+            //    myIndex.CleanUpIndexer();
+            //    DateTime afterDT = System.DateTime.Now;
+            //    TimeSpan ts = afterDT.Subtract(beforDT);
+            //    labelTime.Text = "Indexing Time: " + ts.TotalSeconds.ToString() + "s";
+            //}
+            //else
+            //{
+            //    DateTime beforDT = System.DateTime.Now;
+            //    NewIndexer myIndex = new NewIndexer();
+            //    myIndex.OpenIndex(IndexPath);
+            //    myIndex.IndexJsonFile(CollectionPath);
+            //    myIndex.CleanUpIndexer();
+            //    DateTime afterDT = System.DateTime.Now;
+            //    TimeSpan ts = afterDT.Subtract(beforDT);
+            //    labelTime.Text = "Indexing Time: " + ts.TotalSeconds.ToString() + "s";
+            //}
+            indexerFunc();
+        }
+
+        private void ResultTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LabelTime_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void GroupBox4_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TextBoxTitle_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void QueryText_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CheckBoxTitle_CheckedChanged(object sender, EventArgs e)
+        {
+            if (TitleBoostCheckBox.Checked)
+            {
+                TitleBoostBox.Enabled = true;
+            }
+            else
+            {
+                TitleBoostBox.Enabled = false;
+                titleBoost = 1;
             }
         }
     }

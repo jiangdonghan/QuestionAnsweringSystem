@@ -52,6 +52,13 @@ namespace KLDQuziAnsnwerSystem
             Field fTxt = new Field("passage_txt", txt, Field.Store.YES, Field.Index.ANALYZED);
             Field fUrl = new Field("passage_url", url, Field.Store.YES, Field.Index.ANALYZED);
             Field fAnswer = new Field("Answer", answer, Field.Store.YES, Field.Index.ANALYZED);
+
+
+            //title.Boost = NewMain.titleBoost;
+
+            // boost the passage text
+            fTxt.Boost = NewMain.passageBoost;
+
             doc.Add(fPassageID);
             doc.Add(fTxt);
             doc.Add(fUrl);
