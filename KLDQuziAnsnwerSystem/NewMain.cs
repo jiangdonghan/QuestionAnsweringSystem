@@ -26,7 +26,7 @@ namespace KLDQuziAnsnwerSystem
         public NewMain()
         {
             InitializeComponent();
-
+            
             TitleBoostBox.Enabled = false;
             PassageBoostBox.Enabled = false;
 
@@ -79,7 +79,7 @@ namespace KLDQuziAnsnwerSystem
 
         private void NewMain_FormClosed(object sender, FormClosedEventArgs e)
         {
-            
+            Application.Exit();
         }        
 
         private void ButtonNewSearch_Click(object sender, EventArgs e)
