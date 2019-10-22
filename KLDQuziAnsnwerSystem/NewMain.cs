@@ -124,7 +124,7 @@ namespace KLDQuziAnsnwerSystem
             }
             var querySplit = TokeniseString(queryText);
 
-            if (querySplit.Count() > 1)
+            if (querySplit.Count() > 0)
             {
                 foreach (string s in querySplit)
                 {
