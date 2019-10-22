@@ -51,6 +51,7 @@ namespace KLDQuziAnsnwerSystem
         public string[] GetFinalqueryAndNumberofDocument(string querytext)
         {
             querytext = querytext.ToLower();
+            parser.AllowLeadingWildcard = true;
             Query query = parser.Parse(querytext);
             TopDocs results = searcher.Search(query, 20);
             string finalQuery = query.ToString();
@@ -88,7 +89,7 @@ namespace KLDQuziAnsnwerSystem
                 rank++;
                 Lucene.Net.Documents.Document doc = searcher.Doc(scoreDoc.Doc);
                 string myFieldValuePID = doc.Get(PASSAGE_ID).ToString();                
-                sw.WriteLine("{0,-4} {1,-4} {2,-7} {3,-5} {4,-11} {5}", TopicID, "Q0", myFieldValuePID, rank, scoreDoc.Score, "n10075615_n_n_Team");
+                sw.WriteLine("{0,-4} {1,-4} {2,-7} {3,-5} {4,-11} {5}", TopicID, "Q0", myFieldValuePID, rank, scoreDoc.Score, "A-Team");
             }          
             sw.Close();
             fs1.Close();
@@ -102,6 +103,9 @@ namespace KLDQuziAnsnwerSystem
 
         public TopDocs getResults(string querytext, bool PhraseFormCheckbox, bool QueryExpansionCheckBox) {
             querytext = querytext.ToLower();
+
+            parser.AllowLeadingWildcard = true;
+
             Query query = parser.Parse(querytext);
 
             if (QueryExpansionCheckBox && NewMain.wordNet.IsLoaded)

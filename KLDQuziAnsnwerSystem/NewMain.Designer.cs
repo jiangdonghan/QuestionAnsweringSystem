@@ -85,6 +85,7 @@
             this.ResultTextBox.Location = new System.Drawing.Point(410, 189);
             this.ResultTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.ResultTextBox.Name = "ResultTextBox";
+            this.ResultTextBox.ReadOnly = true;
             this.ResultTextBox.Size = new System.Drawing.Size(474, 531);
             this.ResultTextBox.TabIndex = 0;
             this.ResultTextBox.Text = "";

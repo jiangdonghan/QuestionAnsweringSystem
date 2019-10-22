@@ -60,7 +60,7 @@ namespace KLDQuziAnsnwerSystem
 
 
             fUrl.Boost = NewMain.titleBoost;
-
+            
             // boost the passage text
             fTxt.Boost = NewMain.passageBoost;
 
