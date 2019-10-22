@@ -276,6 +276,6 @@ namespace KLDQuziAnsnwerSystem
                         finalExpandedQueryList.Add(synWord);
                 }
             }
-        }
+        } 
     }
 }
