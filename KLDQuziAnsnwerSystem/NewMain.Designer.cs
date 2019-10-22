@@ -35,11 +35,11 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.checkBoxQueryAsIs = new System.Windows.Forms.CheckBox();
+            this.PhraseFormCheckbox = new System.Windows.Forms.CheckBox();
             this.labelDocNumber = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.buttonOutput = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.QueryExpansionCheckBox = new System.Windows.Forms.CheckBox();
             this.labelSearchingTime = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.ButtonNewSearch = new System.Windows.Forms.Button();
@@ -59,6 +59,8 @@
             this.labelTime = new System.Windows.Forms.Label();
             this.SelectSystem = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.LoadDatabaseButton = new System.Windows.Forms.Button();
+            this.IndexCreate = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -124,11 +126,12 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.checkBoxQueryAsIs);
+            this.groupBox3.Controls.Add(this.LoadDatabaseButton);
+            this.groupBox3.Controls.Add(this.PhraseFormCheckbox);
             this.groupBox3.Controls.Add(this.labelDocNumber);
             this.groupBox3.Controls.Add(this.label6);
             this.groupBox3.Controls.Add(this.buttonOutput);
-            this.groupBox3.Controls.Add(this.checkBox1);
+            this.groupBox3.Controls.Add(this.QueryExpansionCheckBox);
             this.groupBox3.Controls.Add(this.labelSearchingTime);
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.labelFinalQuery);
@@ -143,17 +146,19 @@
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Searching";
+            this.groupBox3.Enter += new System.EventHandler(this.GroupBox3_Enter);
             // 
-            // checkBoxQueryAsIs
+            // PhraseFormCheckbox
             // 
-            this.checkBoxQueryAsIs.AutoSize = true;
-            this.checkBoxQueryAsIs.Location = new System.Drawing.Point(12, 90);
-            this.checkBoxQueryAsIs.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxQueryAsIs.Name = "checkBoxQueryAsIs";
-            this.checkBoxQueryAsIs.Size = new System.Drawing.Size(105, 17);
-            this.checkBoxQueryAsIs.TabIndex = 11;
-            this.checkBoxQueryAsIs.Text = "Use Query As Is";
-            this.checkBoxQueryAsIs.UseVisualStyleBackColor = true;
+            this.PhraseFormCheckbox.AutoSize = true;
+            this.PhraseFormCheckbox.Location = new System.Drawing.Point(12, 90);
+            this.PhraseFormCheckbox.Margin = new System.Windows.Forms.Padding(2);
+            this.PhraseFormCheckbox.Name = "PhraseFormCheckbox";
+            this.PhraseFormCheckbox.Size = new System.Drawing.Size(105, 17);
+            this.PhraseFormCheckbox.TabIndex = 11;
+            this.PhraseFormCheckbox.Text = "Use Query As Is";
+            this.PhraseFormCheckbox.UseVisualStyleBackColor = true;
+            this.PhraseFormCheckbox.CheckedChanged += new System.EventHandler(this.PhraseFormCheckbox_CheckedChanged);
             // 
             // labelDocNumber
             // 
@@ -167,7 +172,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(11, 122);
+            this.label6.Location = new System.Drawing.Point(14, 122);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(113, 13);
@@ -186,16 +191,17 @@
             this.buttonOutput.UseVisualStyleBackColor = true;
             this.buttonOutput.Click += new System.EventHandler(this.ButtonOutput_Click);
             // 
-            // checkBox1
+            // QueryExpansionCheckBox
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(158, 90);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(147, 17);
-            this.checkBox1.TabIndex = 7;
-            this.checkBox1.Text = "Load WordNet Database";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.QueryExpansionCheckBox.AutoSize = true;
+            this.QueryExpansionCheckBox.Location = new System.Drawing.Point(178, 90);
+            this.QueryExpansionCheckBox.Margin = new System.Windows.Forms.Padding(2);
+            this.QueryExpansionCheckBox.Name = "QueryExpansionCheckBox";
+            this.QueryExpansionCheckBox.Size = new System.Drawing.Size(130, 17);
+            this.QueryExpansionCheckBox.TabIndex = 7;
+            this.QueryExpansionCheckBox.Text = "Use Query Expansion";
+            this.QueryExpansionCheckBox.UseVisualStyleBackColor = true;
+            this.QueryExpansionCheckBox.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
             // 
             // labelSearchingTime
             // 
@@ -230,7 +236,7 @@
             // labelFinalQuery
             // 
             this.labelFinalQuery.AutoSize = true;
-            this.labelFinalQuery.Location = new System.Drawing.Point(79, 200);
+            this.labelFinalQuery.Location = new System.Drawing.Point(84, 192);
             this.labelFinalQuery.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelFinalQuery.Name = "labelFinalQuery";
             this.labelFinalQuery.Size = new System.Drawing.Size(63, 13);
@@ -240,7 +246,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 200);
+            this.label2.Location = new System.Drawing.Point(14, 192);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 13);
@@ -375,7 +381,7 @@
             // labelTime
             // 
             this.labelTime.AutoSize = true;
-            this.labelTime.Location = new System.Drawing.Point(375, 98);
+            this.labelTime.Location = new System.Drawing.Point(582, 98);
             this.labelTime.Name = "labelTime";
             this.labelTime.Size = new System.Drawing.Size(80, 13);
             this.labelTime.TabIndex = 14;
@@ -394,6 +400,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.IndexCreate);
             this.groupBox1.Controls.Add(this.groupBox4);
             this.groupBox1.Controls.Add(this.SelectSystem);
             this.groupBox1.Controls.Add(this.labelTime);
@@ -413,6 +420,31 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Enter += new System.EventHandler(this.GroupBox1_Enter);
+            // 
+            // LoadDatabaseButton
+            // 
+            this.LoadDatabaseButton.Location = new System.Drawing.Point(178, 112);
+            this.LoadDatabaseButton.Name = "LoadDatabaseButton";
+            this.LoadDatabaseButton.Size = new System.Drawing.Size(123, 32);
+            this.LoadDatabaseButton.TabIndex = 12;
+            this.LoadDatabaseButton.Text = "Load Wordnet";
+            this.LoadDatabaseButton.UseVisualStyleBackColor = true;
+            this.LoadDatabaseButton.Click += new System.EventHandler(this.LoadDatabaseButton_Click);
+            // 
+            // IndexCreate
+            // 
+            this.IndexCreate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(105)))), ((int)(((byte)(232)))));
+            this.IndexCreate.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.IndexCreate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.IndexCreate.ForeColor = System.Drawing.Color.White;
+            this.IndexCreate.Location = new System.Drawing.Point(378, 86);
+            this.IndexCreate.Margin = new System.Windows.Forms.Padding(2);
+            this.IndexCreate.Name = "IndexCreate";
+            this.IndexCreate.Size = new System.Drawing.Size(175, 37);
+            this.IndexCreate.TabIndex = 8;
+            this.IndexCreate.Text = "START INDEXING";
+            this.IndexCreate.UseVisualStyleBackColor = false;
+            this.IndexCreate.Click += new System.EventHandler(this.IndexCreate_Click_1);
             // 
             // NewMain
             // 
@@ -450,11 +482,11 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.CheckBox checkBoxQueryAsIs;
+        private System.Windows.Forms.CheckBox PhraseFormCheckbox;
         private System.Windows.Forms.Label labelDocNumber;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button buttonOutput;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox QueryExpansionCheckBox;
         private System.Windows.Forms.Label labelSearchingTime;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button ButtonNewSearch;
@@ -474,5 +506,7 @@
         private System.Windows.Forms.Label labelTime;
         private System.Windows.Forms.CheckBox SelectSystem;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button LoadDatabaseButton;
+        private System.Windows.Forms.Button IndexCreate;
     }
 }

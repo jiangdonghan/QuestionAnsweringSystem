@@ -23,6 +23,11 @@ namespace KLDQuziAnsnwerSystem
         Lucene.Net.Analysis.Analyzer analyzer;
         Lucene.Net.Index.IndexWriter writer;
         public static Lucene.Net.Util.Version VERSION = Lucene.Net.Util.Version.LUCENE_30;
+
+        public static string passage_ID = "passage_ID";
+        public static string passage_txt = "passage_txt";
+        public static string passage_url  = "passage_url";
+        public static string Answer = "Answer";
         public NewIndexer()
         {
             luceneIndexDirectory = null; // Is set in Create Index
@@ -48,13 +53,13 @@ namespace KLDQuziAnsnwerSystem
         public void AddDocument(String passageID, String txt, String url, String answer)
         {
             Document doc = new Document();
-            Field fPassageID = new Field("passage_ID", passageID, Field.Store.YES, Field.Index.ANALYZED);
-            Field fTxt = new Field("passage_txt", txt, Field.Store.YES, Field.Index.ANALYZED);
-            Field fUrl = new Field("passage_url", url, Field.Store.YES, Field.Index.ANALYZED);
-            Field fAnswer = new Field("Answer", answer, Field.Store.YES, Field.Index.ANALYZED);
+            Field fPassageID = new Field(passage_ID, passageID, Field.Store.YES, Field.Index.ANALYZED);
+            Field fTxt = new Field(passage_txt, txt, Field.Store.YES, Field.Index.ANALYZED);
+            Field fUrl = new Field(passage_url, url, Field.Store.YES, Field.Index.ANALYZED);
+            Field fAnswer = new Field(Answer, answer, Field.Store.YES, Field.Index.ANALYZED);
 
 
-            //title.Boost = NewMain.titleBoost;
+            fUrl.Boost = NewMain.titleBoost;
 
             // boost the passage text
             fTxt.Boost = NewMain.passageBoost;

@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Lucene.Net.Analysis;
+using Syn.WordNet;
 
 namespace KLDQuziAnsnwerSystem
 {
@@ -20,6 +21,8 @@ namespace KLDQuziAnsnwerSystem
 
         public static bool IndexCollection = false;
 
+        public static WordNetEngine wordNet = new WordNetEngine();
+
         public NewMain()
         {
             InitializeComponent();
@@ -29,6 +32,8 @@ namespace KLDQuziAnsnwerSystem
 
             TitleBoostBox.Text = "1.0";
             PassageBoostBox.Text = "1.0";
+
+            LoadDatabaseButton.Enabled = false;
         }
         public Func<string> GetValue;
 
@@ -86,6 +91,7 @@ namespace KLDQuziAnsnwerSystem
 
             if (TitleBoostCheckBox.Checked)
                 titleBoost = float.Parse(TitleBoostBox.Text);
+                titleBoost = float.Parse(TitleBoostBox.Text);
 
             if (PassageBoostCheckBox.Checked)
                 passageBoost = float.Parse(PassageBoostBox.Text);
@@ -100,7 +106,7 @@ namespace KLDQuziAnsnwerSystem
             string[] str = newSearcher.GetFinalqueryAndNumberofDocument(queryText);
             labelDocNumber.Text = str[0];
             labelFinalQuery.Text = str[1];
-            List<String> listResult = newSearcher.SearchText(queryText);
+            List<String> listResult = newSearcher.SearchText(queryText, PhraseFormCheckbox.Checked, QueryExpansionCheckBox.Checked);
             
             ResultTextBox.Lines = listResult.ToArray();
             int len = ResultTextBox.TextLength;
@@ -283,6 +289,49 @@ namespace KLDQuziAnsnwerSystem
                 TitleBoostBox.Enabled = false;
                 titleBoost = 1;
             }
+        }
+
+        private void CheckBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (QueryExpansionCheckBox.Checked && !wordNet.IsLoaded)
+            {
+                MessageBox.Show("Please load wordnet database");
+                LoadDatabaseButton.Enabled = true;
+            }
+            else
+            {
+                LoadDatabaseButton.Enabled = false;
+            }
+        }
+
+        private void LoadDatabaseButton_Click(object sender, EventArgs e)
+        {
+            string directoryPath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, @"bin\Debug\wordnet");
+            MessageBox.Show("Loading database");
+            wordNet.LoadFromDirectory(directoryPath);
+            MessageBox.Show("Load completed");
+            LoadDatabaseButton.Text = "Database is loaded.";
+            LoadDatabaseButton.Enabled = false;
+        }
+
+        private void PhraseFormCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void IndexCreate_Click_1(object sender, EventArgs e)
+        {
+            indexerFunc();
+        }
+
+        private void GroupBox3_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

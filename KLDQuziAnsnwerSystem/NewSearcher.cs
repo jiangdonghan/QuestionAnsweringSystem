@@ -29,7 +29,9 @@ namespace KLDQuziAnsnwerSystem
         Analyzer analyzer_standard = new Lucene.Net.Analysis.Standard.StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
         IndexSearcher searcher;
         MultiFieldQueryParser parser;
-        
+
+        public static List<string> finalExpandedQueryList;
+
         public NewSearcher()
         {
             analyzer = analyzer_standard;
@@ -91,12 +93,130 @@ namespace KLDQuziAnsnwerSystem
             sw.Close();
             fs1.Close();
         }
-        public List<string> SearchText(string querytext)
+
+        public string[] TokeniseString(String text)
         {
+           char[] delimeters = { ' ', '\'', '!', '.', '-', ',' };
+           return text.ToLower().Split(delimeters, StringSplitOptions.RemoveEmptyEntries);
+        }
+
+
+        //public string getExpandedQuery(string querytext)
+        //{
+        //    string expandedQuery = querytext;
+
+        //    string[] tokens = TokeniseString(querytext);
+
+        //    //foreach (string q in tokens)
+        //    //{
+        //    //    try
+        //    //    {
+        //    //        var synSetList = NewMain.wordNet.GetSynSets(q);
+        //    //        if (synSetList.Count == 0) Console.WriteLine($"No SynSet found for '{q}'");
+
+        //    //        foreach (var synSet in synSetList)
+        //    //        {
+        //    //            var words = string.Join(", ", synSet.Words);
+
+        //    //            Console.WriteLine($"\nWords: {words}");
+        //    //            Console.WriteLine($"POS: {synSet.PartOfSpeech}");
+        //    //            Console.WriteLine($"Gloss: {synSet.Gloss}");
+        //    //        }
+        //    //    } catch {
+        //    //        Console.WriteLine("Nothing there");
+        //    //    }
+
+
+
+        //    //}
+
+        //    List<string> synWordList = new List<string>();
+        //    foreach (var eachQuery in tokens)
+        //    {
+        //        foreach (var synSet in NewMain.wordNet.GetSynSets(eachQuery))
+        //        {
+        //            foreach (var synSetWord in synSet.Words)
+        //            {
+        //                if (!synWordList.Contains(synSetWord))
+        //                    synWordList.Add(synSetWord);
+        //            }
+        //        }
+        //    }
+
+        //    // Process the SynSetwords and add it to a finalExpandedQueryList
+        //    foreach (var synWord in synWordList)
+        //    {
+        //        if (synWord.Contains("_"))
+        //        // Add weighting to expanded queries if they are identical to final queries  
+        //        {
+        //            if (queryList.Contains(synWord.Replace('_', ' ')))
+        //                finalExpandedQueryList.Add("\"" + synWord.Replace('_', ' ') + "\"" + "^5");
+        //            else
+        //                finalExpandedQueryList.Add("\"" + synWord.Replace('_', ' ') + "\"");
+        //        }
+        //        // Add weighting to expanded queries if they are identical to final queries  
+        //        else
+        //        {
+        //            if (queryList.Contains(synWord))
+        //                finalExpandedQueryList.Add(synWord + "^5");
+        //            else
+        //                finalExpandedQueryList.Add(synWord);
+        //        }
+        //    }
+
+
+        //    //TODO join the list
+
+        //    return expandedQuery;
+        //}
+
+
+        public TopDocs getResults(string querytext, bool PhraseFormCheckbox, bool QueryExpansionCheckBox) {
             querytext = querytext.ToLower();
-            Query query = parser.Parse(querytext);         
-            Console.WriteLine(query.ToString());
-            TopDocs results = searcher.Search(query, 20);
+            Query query = parser.Parse(querytext);
+
+            if (QueryExpansionCheckBox && NewMain.wordNet.IsLoaded)
+            {
+                string[] tokens = TokeniseString(querytext);
+
+                List<string> tokensList = new List<string>(tokens);
+
+                finalExpandedQueryList = new List<string>();
+                QueryExpansion(finalExpandedQueryList, tokensList, PhraseFormCheckbox);
+
+                // if wordnet does not produce any query
+                if (finalExpandedQueryList.Count == 0)
+                {
+                    return searcher.Search(query, 20);
+                }
+
+                // if the number of expanded queries is not zero
+                else
+                {
+                    // Create expanded query for searching
+                    string expandedQueryConcatenation = string.Join(" ", finalExpandedQueryList);
+                    Console.WriteLine(expandedQueryConcatenation);
+                    Query expandedQuery = parser.Parse(expandedQueryConcatenation);
+                    return searcher.Search(expandedQuery, 20);
+                }
+
+            }
+            
+            
+            //Console.WriteLine(query.ToString());
+            return searcher.Search(query, 20);
+            
+        }
+
+
+        public List<string> SearchText(string querytext, bool PhraseFormCheckbox, bool QueryExpansionCheckBox)
+        {
+
+            //Query query = parser.Parse(querytext);         
+            ////Console.WriteLine(query.ToString());
+
+            TopDocs results = getResults(querytext, PhraseFormCheckbox, QueryExpansionCheckBox);
+
             int rank = 0;
             List<string> listResult = new List<string>();
             foreach (ScoreDoc scoreDoc in results.ScoreDocs)
@@ -150,6 +270,79 @@ namespace KLDQuziAnsnwerSystem
                 //listResult.Add("Rank " + rank + " text " + myFieldValue);
             }
             return listResult;
+        }
+
+        public void QueryExpansion(List<string> finalExpandedQueryList, List<string> queryList, bool PhraseFormCheckbox)
+        {
+            // final query -> wordnet (not phrase)
+            if (!PhraseFormCheckbox)
+            {
+                // Get SynSetlist
+                List<string> synWordList = new List<string>();
+                foreach (var eachQuery in queryList)
+                {
+                    foreach (var synSet in NewMain.wordNet.GetSynSets(eachQuery))
+                    {
+                        foreach (var synSetWord in synSet.Words)
+                        {
+                            if (!synWordList.Contains(synSetWord))
+                                synWordList.Add(synSetWord);
+                        }
+                    }
+                }
+                // Process the SynSetwords and add it to a finalExpandedQueryList
+                foreach (var synWord in synWordList)
+                {
+                    if (synWord.Contains("_"))
+                    // Add weighting to expanded queries if they are identical to final queries  
+                    {
+                        if (queryList.Contains(synWord.Replace('_', ' ')))
+                            finalExpandedQueryList.Add("\"" + synWord.Replace('_', ' ') + "\"" + "^5");
+                        else
+                            finalExpandedQueryList.Add("\"" + synWord.Replace('_', ' ') + "\"");
+                    }
+                    // Add weighting to expanded queries if they are identical to final queries  
+                    else
+                    {
+                        if (queryList.Contains(synWord))
+                            finalExpandedQueryList.Add(synWord + "^5");
+                        else
+                            finalExpandedQueryList.Add(synWord);
+                    }
+                }
+            }
+
+            // final query -> wordnet (phrase)
+            else
+            {
+                // Get phrase
+                string phrase = string.Join(" ", queryList);
+
+                // Get SynSetlist
+                List<string> synWordList = new List<string>();
+                foreach (var synSet in NewMain.wordNet.GetSynSets(phrase))
+                {
+                    foreach (var synSetWord in synSet.Words)
+                    {
+                        if (!synWordList.Contains(synSetWord))
+                            synWordList.Add(synSetWord);
+                    }
+                }
+                // Process the SynSetwords and add it to a finalExpandedQueryList
+                foreach (var synWord in synWordList)
+                {
+                    if (synWord.Contains("_"))
+                    {
+                        // Add weighting to expanded queries if they are identical to final phrase  
+                        if (synWord.Replace('_', ' ') == phrase)
+                            finalExpandedQueryList.Add("\"" + synWord.Replace('_', ' ') + "\"^5");
+                        else
+                            finalExpandedQueryList.Add("\"" + synWord.Replace('_', ' ') + "\"");
+                    }
+                    else
+                        finalExpandedQueryList.Add(synWord);
+                }
+            }
         }
     }
 }
