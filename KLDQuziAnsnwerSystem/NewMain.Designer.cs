@@ -442,7 +442,7 @@
             this.IndexCreate.Name = "IndexCreate";
             this.IndexCreate.Size = new System.Drawing.Size(175, 37);
             this.IndexCreate.TabIndex = 8;
-            this.IndexCreate.Text = "START INDEXING";
+            this.IndexCreate.Text = "INDEX NOW";
             this.IndexCreate.UseVisualStyleBackColor = false;
             this.IndexCreate.Click += new System.EventHandler(this.IndexCreate_Click_1);
             // 
