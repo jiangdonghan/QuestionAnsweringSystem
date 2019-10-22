@@ -306,7 +306,7 @@ namespace KLDQuziAnsnwerSystem
 
         private void LoadDatabaseButton_Click(object sender, EventArgs e)
         {
-            string directoryPath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, @"bin\Debug\wordnet");
+            string directoryPath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, @"wordnet");
             MessageBox.Show("Loading database");
             wordNet.LoadFromDirectory(directoryPath);
             MessageBox.Show("Load completed");
