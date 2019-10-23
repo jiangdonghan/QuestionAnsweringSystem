@@ -90,7 +90,7 @@ namespace KLDQuziAnsnwerSystem
                 rank++;
                 Lucene.Net.Documents.Document doc = searcher.Doc(scoreDoc.Doc);
                 string myFieldValuePID = doc.Get(PASSAGE_ID).ToString();                
-                sw.WriteLine("{0,-4} {1,-4} {2,-7} {3,-5} {4,-11} {5}", TopicID, "Q0", myFieldValuePID, rank, scoreDoc.Score, "A-Team");
+                sw.WriteLine("{0,-4} {1,-4} {2,-7} {3,-5} {4,-11} {5}", TopicID, "Q0", myFieldValuePID, rank, scoreDoc.Score, "N10273077-N10075615-N10359613-N10130039-ATeam");
             }          
             sw.Close();
             fs1.Close();

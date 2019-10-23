@@ -463,7 +463,7 @@ namespace KLDQuziAnsnwerSystem
 
         public List<string> TokeniseString(String text)
         {
-            char[] delimeters = { ' ', '\'', '!', '.', '-', ',' };
+            char[] delimeters = { ' ', '\'', '!', '.', '-', ',' ,'\t',':','\n','\r'};
             List<string> stopWordList = new List<string>()
             {
                 "a",
