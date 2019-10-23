@@ -61,7 +61,7 @@ namespace KLDQuziAnsnwerSystem
             DateTime beforDT = System.DateTime.Now;   
             String path = label4.Text;
             
-            Searcher searcher = new Searcher(analyzer_simple);
+            Searcher searcher = new Searcher();
             searcher.CreateSearcher(path);
             String queryText = Querytext.Text;
             List<String> listResult = searcher.SearchText(queryText);

@@ -27,13 +27,24 @@ namespace KLDQuziAnsnwerSystem
         Analyzer analyzer_snowball = new Lucene.Net.Analysis.Snowball.SnowballAnalyzer(Lucene.Net.Util.Version.LUCENE_30, "English");
         IndexSearcher searcher;
         QueryParser parser;
-        public Searcher(Analyzer an)
+        public Searcher()
         {
-            analyzer = an;
+            analyzer = analyzer_simple;
             parser = new QueryParser(Lucene.Net.Util.Version.LUCENE_30, TEXT_FN, analyzer);
             //parser = new MultiFieldQueryParser(Lucene.Net.Util.Version.LUCENE_30, TEXT_FN, analyzer);
             //newSimilarity = new NewSimilarity(); // Activity 9
 
+        }
+        public string[] GetFinalqueryAndNumberofDocument(string querytext)
+        {
+            querytext = querytext.ToLower();
+            parser.AllowLeadingWildcard = true;
+            Query query = parser.Parse(querytext);
+            TopDocs results = searcher.Search(query,NewMain.resultCount);
+            
+ 
+            string[] str = new string[] { results.TotalHits.ToString(), querytext };
+            return str;
         }
         public void CreateSearcher(String path)
         {

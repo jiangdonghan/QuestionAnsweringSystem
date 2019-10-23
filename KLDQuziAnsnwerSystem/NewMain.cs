@@ -84,79 +84,152 @@ namespace KLDQuziAnsnwerSystem
 
         private void ButtonNewSearch_Click(object sender, EventArgs e)
         {
-
-            
-            DateTime beforDT = System.DateTime.Now;            
-            String path = IndexPath;          
-            NewSearcher newSearcher = new NewSearcher();
-            string intString = textBoxResultCount.Text;
-            int i = 0;
-            if (!Int32.TryParse(intString, out i))
+            if (SelectSystem.Checked)
             {
-                i = -1;
-            }
-            if (i > 0) { resultCount = i; }
-            else
-            {
-                MessageBox.Show("please enter integer");
-            }
-            
-
-            if (TitleBoostCheckBox.Checked)
-                titleBoost = float.Parse(TitleBoostBox.Text);
-                titleBoost = float.Parse(TitleBoostBox.Text);
-
-            if (PassageBoostCheckBox.Checked)
-                passageBoost = float.Parse(PassageBoostBox.Text);
-
-            // check the flag for re-indexing
-            if (!IndexCollection)
-                // call indexer
-                indexerFunc();
-
-            newSearcher.CreateSearcher(path);
-            String queryText = QueryText.Text;
-            queryText = QueryPrecessor.CleanSearchedWords(queryText);
-            string[] str = newSearcher.GetFinalqueryAndNumberofDocument(queryText);
-            labelDocNumber.Text = str[0];
-            richFinalQuery.Text = str[1];
-            
-            List<String> listResult = newSearcher.SearchText(queryText, PhraseFormCheckbox.Checked, QueryExpansionCheckBox.Checked);
-            if (QueryExpansionCheckBox.Checked)
-            {
-                richFinalQuery.Text = expandedQueryConcatenation;
-            }
-            ResultTextBox.Lines = listResult.ToArray();
-            int len = ResultTextBox.TextLength;
-            int index = 0;
-            int lastIndex = ResultTextBox.Text.LastIndexOf(queryText);
-            while (index < lastIndex)
-            {
-                ResultTextBox.Find(queryText, index, len, RichTextBoxFinds.None);
-                ResultTextBox.SelectionBackColor = Color.Turquoise;
-                index = ResultTextBox.Text.IndexOf(queryText, index) + 1;
-            }
-            var querySplit = TokeniseString(queryText);
-
-            if (querySplit.Count() > 0)
-            {
-                foreach (string s in querySplit)
+                DateTime beforDT = System.DateTime.Now;
+                String path = IndexPath;
+                Searcher Searcher = new Searcher();
+                string intString = textBoxResultCount.Text;
+                int i = 0;
+                if (!Int32.TryParse(intString, out i))
                 {
-                    int index_split = 0;
-                    int lastIndex_Split = ResultTextBox.Text.LastIndexOf(s);
-                    while (index_split < lastIndex_Split)
+                    i = -1;
+                }
+                if (i > 0) { resultCount = i; }
+                else
+                {
+                    MessageBox.Show("please enter integer");
+                }
+
+
+                if (TitleBoostCheckBox.Checked)
+                    titleBoost = float.Parse(TitleBoostBox.Text);
+                titleBoost = float.Parse(TitleBoostBox.Text);
+
+                if (PassageBoostCheckBox.Checked)
+                    passageBoost = float.Parse(PassageBoostBox.Text);
+
+                // check the flag for re-indexing
+                if (!IndexCollection)
+                    // call indexer
+                    indexerFunc();
+
+               Searcher.CreateSearcher(path);
+                String queryText = QueryText.Text;
+                queryText = QueryPrecessor.CleanSearchedWords(queryText);
+                string[] str = Searcher.GetFinalqueryAndNumberofDocument(queryText);
+                labelDocNumber.Text = str[0];
+                richFinalQuery.Text = str[1];
+
+                List<String> listResult = Searcher.SearchText(queryText);
+                
+                ResultTextBox.Lines = listResult.ToArray();
+                int len = ResultTextBox.TextLength;
+                int index = 0;
+                int lastIndex = ResultTextBox.Text.LastIndexOf(queryText);
+                while (index < lastIndex)
+                {
+                    ResultTextBox.Find(queryText, index, len, RichTextBoxFinds.None);
+                    ResultTextBox.SelectionBackColor = Color.Turquoise;
+                    index = ResultTextBox.Text.IndexOf(queryText, index) + 1;
+                }
+                var querySplit = TokeniseString(queryText);
+
+                if (querySplit.Count() > 0)
+                {
+                    foreach (string s in querySplit)
                     {
-                        ResultTextBox.Find(s, index_split, len, RichTextBoxFinds.None);
-                        ResultTextBox.SelectionBackColor = Color.Turquoise;
-                        index_split = ResultTextBox.Text.IndexOf(s, index_split) + 1;
+                        int index_split = 0;
+                        int lastIndex_Split = ResultTextBox.Text.LastIndexOf(s);
+                        while (index_split < lastIndex_Split)
+                        {
+                            ResultTextBox.Find(s, index_split, len, RichTextBoxFinds.None);
+                            ResultTextBox.SelectionBackColor = Color.Turquoise;
+                            index_split = ResultTextBox.Text.IndexOf(s, index_split) + 1;
+                        }
                     }
                 }
-            }            
 
-            DateTime afterDT = System.DateTime.Now;
-            TimeSpan ts = afterDT.Subtract(beforDT);
-            labelSearchingTime.Text = ts.TotalSeconds.ToString() + "s";
-            newSearcher.CleanUpSearcher();
+                DateTime afterDT = System.DateTime.Now;
+                TimeSpan ts = afterDT.Subtract(beforDT);
+                labelSearchingTime.Text = ts.TotalSeconds.ToString() + "s";
+                Searcher.CleanUpSearcher();
+            }
+            else
+            {
+                DateTime beforDT = System.DateTime.Now;
+                String path = IndexPath;
+                NewSearcher newSearcher = new NewSearcher();
+                string intString = textBoxResultCount.Text;
+                int i = 0;
+                if (!Int32.TryParse(intString, out i))
+                {
+                    i = -1;
+                }
+                if (i > 0) { resultCount = i; }
+                else
+                {
+                    MessageBox.Show("please enter integer");
+                }
+
+
+                if (TitleBoostCheckBox.Checked)
+                    titleBoost = float.Parse(TitleBoostBox.Text);
+                titleBoost = float.Parse(TitleBoostBox.Text);
+
+                if (PassageBoostCheckBox.Checked)
+                    passageBoost = float.Parse(PassageBoostBox.Text);
+
+                // check the flag for re-indexing
+                if (!IndexCollection)
+                    // call indexer
+                    indexerFunc();
+
+                newSearcher.CreateSearcher(path);
+                String queryText = QueryText.Text;
+                queryText = QueryPrecessor.CleanSearchedWords(queryText);
+                string[] str = newSearcher.GetFinalqueryAndNumberofDocument(queryText);
+                labelDocNumber.Text = str[0];
+                richFinalQuery.Text = str[1];
+
+                List<String> listResult = newSearcher.SearchText(queryText, PhraseFormCheckbox.Checked, QueryExpansionCheckBox.Checked);
+                if (QueryExpansionCheckBox.Checked)
+                {
+                    richFinalQuery.Text = expandedQueryConcatenation;
+                }
+                ResultTextBox.Lines = listResult.ToArray();
+                int len = ResultTextBox.TextLength;
+                int index = 0;
+                int lastIndex = ResultTextBox.Text.LastIndexOf(queryText);
+                while (index < lastIndex)
+                {
+                    ResultTextBox.Find(queryText, index, len, RichTextBoxFinds.None);
+                    ResultTextBox.SelectionBackColor = Color.Turquoise;
+                    index = ResultTextBox.Text.IndexOf(queryText, index) + 1;
+                }
+                var querySplit = TokeniseString(queryText);
+
+                if (querySplit.Count() > 0)
+                {
+                    foreach (string s in querySplit)
+                    {
+                        int index_split = 0;
+                        int lastIndex_Split = ResultTextBox.Text.LastIndexOf(s);
+                        while (index_split < lastIndex_Split)
+                        {
+                            ResultTextBox.Find(s, index_split, len, RichTextBoxFinds.None);
+                            ResultTextBox.SelectionBackColor = Color.Turquoise;
+                            index_split = ResultTextBox.Text.IndexOf(s, index_split) + 1;
+                        }
+                    }
+                }
+
+                DateTime afterDT = System.DateTime.Now;
+                TimeSpan ts = afterDT.Subtract(beforDT);
+                labelSearchingTime.Text = ts.TotalSeconds.ToString() + "s";
+                newSearcher.CleanUpSearcher();
+            }
+            
         }
         private void ButtonOutput_Click(object sender, EventArgs e)
         {
