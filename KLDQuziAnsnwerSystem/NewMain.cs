@@ -22,14 +22,14 @@ namespace KLDQuziAnsnwerSystem
         public static bool IndexCollection = false;
         public static string expandedQueryConcatenation;
         public static WordNetEngine wordNet = new WordNetEngine();
-
+        public static int resultCount = 20;
         public NewMain()
         {
             InitializeComponent();
             
             TitleBoostBox.Enabled = false;
             PassageBoostBox.Enabled = false;
-
+            textBoxResultCount.Text = "20";
             TitleBoostBox.Text = "1.0";
             PassageBoostBox.Text = "1.0";
 
@@ -84,10 +84,23 @@ namespace KLDQuziAnsnwerSystem
 
         private void ButtonNewSearch_Click(object sender, EventArgs e)
         {
+
             
             DateTime beforDT = System.DateTime.Now;            
             String path = IndexPath;          
             NewSearcher newSearcher = new NewSearcher();
+            string intString = textBoxResultCount.Text;
+            int i = 0;
+            if (!Int32.TryParse(intString, out i))
+            {
+                i = -1;
+            }
+            if (i > 0) { resultCount = i; }
+            else
+            {
+                MessageBox.Show("please enter integer");
+            }
+            
 
             if (TitleBoostCheckBox.Checked)
                 titleBoost = float.Parse(TitleBoostBox.Text);
@@ -942,6 +955,16 @@ namespace KLDQuziAnsnwerSystem
             }
 
             return tokenlist;
+        }
+
+        private void TextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PassageBoostBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

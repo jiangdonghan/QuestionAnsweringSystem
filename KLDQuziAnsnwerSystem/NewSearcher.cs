@@ -24,6 +24,7 @@ namespace KLDQuziAnsnwerSystem
         const string ANSWER_FN = "Answer";
         const string PASSAGE_ID = "passage_ID";
         
+        
         Lucene.Net.Analysis.Analyzer analyzer;
         Lucene.Net.Store.Directory luceneIndexDirectorySearcher;
         Analyzer analyzer_standard = new Lucene.Net.Analysis.Standard.StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
@@ -53,7 +54,7 @@ namespace KLDQuziAnsnwerSystem
             querytext = querytext.ToLower();
             parser.AllowLeadingWildcard = true;
             Query query = parser.Parse(querytext);
-            TopDocs results = searcher.Search(query, 20);
+            TopDocs results = searcher.Search(query, NewMain.resultCount);
             string finalQuery = query.ToString();
             string[] querySplit = finalQuery.Split(')');
     
@@ -82,7 +83,7 @@ namespace KLDQuziAnsnwerSystem
             StreamWriter sw = new StreamWriter(fs1);
             querytext = querytext.ToLower();
             Query query = parser.Parse(querytext);
-            TopDocs results = searcher.Search(query, 20);
+            TopDocs results = searcher.Search(query, NewMain.resultCount);
             int rank = 0;
             foreach (ScoreDoc scoreDoc in results.ScoreDocs)
             {
@@ -120,7 +121,7 @@ namespace KLDQuziAnsnwerSystem
                 // if wordnet does not produce any query
                 if (finalExpandedQueryList.Count == 0)
                 {
-                    return searcher.Search(query, 20);
+                    return searcher.Search(query, NewMain.resultCount);
                 }
 
                 // if the number of expanded queries is not zero
@@ -130,14 +131,14 @@ namespace KLDQuziAnsnwerSystem
                     NewMain.expandedQueryConcatenation = string.Join(" ", finalExpandedQueryList);
                     Console.WriteLine(NewMain.expandedQueryConcatenation);
                     Query expandedQuery = parser.Parse(NewMain.expandedQueryConcatenation);
-                    return searcher.Search(expandedQuery, 20);
+                    return searcher.Search(expandedQuery, NewMain.resultCount);
                 }
 
             }
             
             
             //Console.WriteLine(query.ToString());
-            return searcher.Search(query, 20);
+            return searcher.Search(query, NewMain.resultCount);
             
         }
 
