@@ -103,6 +103,7 @@ namespace KLDQuziAnsnwerSystem
 
             newSearcher.CreateSearcher(path);
             String queryText = QueryText.Text;
+            queryText = QueryPrecessor.CleanSearchedWords(queryText);
             string[] str = newSearcher.GetFinalqueryAndNumberofDocument(queryText);
             labelDocNumber.Text = str[0];
             richFinalQuery.Text = str[1];
