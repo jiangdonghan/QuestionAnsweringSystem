@@ -31,7 +31,7 @@ namespace KLDQuziAnsnwerSystem
         MultiFieldQueryParser parser;
 
         public static List<string> finalExpandedQueryList;
-
+        
         public NewSearcher()
         {
             analyzer = analyzer_standard;
@@ -127,9 +127,9 @@ namespace KLDQuziAnsnwerSystem
                 else
                 {
                     // Create expanded query for searching
-                    string expandedQueryConcatenation = string.Join(" ", finalExpandedQueryList);
-                    Console.WriteLine(expandedQueryConcatenation);
-                    Query expandedQuery = parser.Parse(expandedQueryConcatenation);
+                    NewMain.expandedQueryConcatenation = string.Join(" ", finalExpandedQueryList);
+                    Console.WriteLine(NewMain.expandedQueryConcatenation);
+                    Query expandedQuery = parser.Parse(NewMain.expandedQueryConcatenation);
                     return searcher.Search(expandedQuery, 20);
                 }
 

@@ -20,7 +20,7 @@ namespace KLDQuziAnsnwerSystem
         public static float passageBoost = 1;
 
         public static bool IndexCollection = false;
-
+        public static string expandedQueryConcatenation;
         public static WordNetEngine wordNet = new WordNetEngine();
 
         public NewMain()
@@ -105,9 +105,13 @@ namespace KLDQuziAnsnwerSystem
             String queryText = QueryText.Text;
             string[] str = newSearcher.GetFinalqueryAndNumberofDocument(queryText);
             labelDocNumber.Text = str[0];
-            labelFinalQuery.Text = str[1];
-            List<String> listResult = newSearcher.SearchText(queryText, PhraseFormCheckbox.Checked, QueryExpansionCheckBox.Checked);
+            richFinalQuery.Text = str[1];
             
+            List<String> listResult = newSearcher.SearchText(queryText, PhraseFormCheckbox.Checked, QueryExpansionCheckBox.Checked);
+            if (QueryExpansionCheckBox.Checked)
+            {
+                richFinalQuery.Text = expandedQueryConcatenation;
+            }
             ResultTextBox.Lines = listResult.ToArray();
             int len = ResultTextBox.TextLength;
             int index = 0;
