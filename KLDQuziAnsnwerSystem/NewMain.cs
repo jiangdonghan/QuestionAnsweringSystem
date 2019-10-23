@@ -120,7 +120,7 @@ namespace KLDQuziAnsnwerSystem
                 string[] str = Searcher.GetFinalqueryAndNumberofDocument(queryText);
                 labelDocNumber.Text = str[0];
                 richFinalQuery.Text = str[1];
-
+                
                 List<String> listResult = Searcher.SearchText(queryText);
                 
                 ResultTextBox.Lines = listResult.ToArray();
@@ -187,7 +187,11 @@ namespace KLDQuziAnsnwerSystem
 
                 newSearcher.CreateSearcher(path);
                 String queryText = QueryText.Text;
-                queryText = QueryPrecessor.CleanSearchedWords(queryText);
+                if (!PhraseFormCheckbox.Checked)
+                {
+                    queryText = QueryPrecessor.CleanSearchedWords(queryText);
+                }
+                
                 string[] str = newSearcher.GetFinalqueryAndNumberofDocument(queryText);
                 labelDocNumber.Text = str[0];
                 richFinalQuery.Text = str[1];
@@ -196,6 +200,10 @@ namespace KLDQuziAnsnwerSystem
                 if (QueryExpansionCheckBox.Checked)
                 {
                     richFinalQuery.Text = expandedQueryConcatenation;
+                }
+                if (PhraseFormCheckbox.Checked)
+                {
+                    richFinalQuery.Text = queryText;
                 }
                 ResultTextBox.Lines = listResult.ToArray();
                 int len = ResultTextBox.TextLength;
