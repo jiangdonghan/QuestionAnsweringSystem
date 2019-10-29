@@ -31,7 +31,7 @@ namespace KLDQuziAnsnwerSystem
     {
         Lucene.Net.Analysis.Analyzer analyzer;
         Lucene.Net.Store.Directory luceneIndexDirectory;
-        
+        public static string passage_ID = "passage_ID";
         Lucene.Net.Index.IndexWriter writer;
         public static Lucene.Net.Util.Version VERSION = Lucene.Net.Util.Version.LUCENE_30;
         public Indexer(Analyzer an)
@@ -54,10 +54,12 @@ namespace KLDQuziAnsnwerSystem
             writer.Flush(true, true, true);
             writer.Dispose();
         }
-        public void AddTxt(String txt)
+        public void AddTxt(String txt,String passageID)
         {
             Document doc = new Document();
             Field fTxt = new Field("text", txt, Field.Store.YES, Field.Index.ANALYZED);
+            Field fPassageID = new Field(passage_ID, passageID, Field.Store.YES, Field.Index.ANALYZED);
+            doc.Add(fPassageID);
             doc.Add(fTxt);
             writer.AddDocument(doc);
         }
@@ -78,7 +80,8 @@ namespace KLDQuziAnsnwerSystem
                     { 
                         String text = p.passage_text;
                         text = text + "URL: " +  p.url;
-                        AddTxt(text);                     
+
+                        AddTxt(text, p.passage_ID);                     
                         }
                     }
                 }

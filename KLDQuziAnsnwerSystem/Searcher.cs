@@ -12,6 +12,7 @@ using Lucene.Net.QueryParsers;  // for QueryParser
 using Lucene.Net.Analysis.Snowball; // for snowball analyser 
 using System.Text.RegularExpressions;
 using System.Net;
+using System.IO;
 
 namespace KLDQuziAnsnwerSystem
 {
@@ -19,7 +20,7 @@ namespace KLDQuziAnsnwerSystem
     {
         const Lucene.Net.Util.Version VERSION = Lucene.Net.Util.Version.LUCENE_30;
         const string TEXT_FN = "text";
-        
+        const string PASSAGE_ID = "passage_ID";
         Lucene.Net.Analysis.Analyzer analyzer;
         Lucene.Net.Store.Directory luceneIndexDirectorySearcher;
         Lucene.Net.Analysis.Analyzer analyzer_simple = new Lucene.Net.Analysis.SimpleAnalyzer();
@@ -33,6 +34,7 @@ namespace KLDQuziAnsnwerSystem
             parser = new QueryParser(Lucene.Net.Util.Version.LUCENE_30, TEXT_FN, analyzer);
             //parser = new MultiFieldQueryParser(Lucene.Net.Util.Version.LUCENE_30, TEXT_FN, analyzer);
             //newSimilarity = new NewSimilarity(); // Activity 9
+            parser = new MultiFieldQueryParser(Lucene.Net.Util.Version.LUCENE_30, new string[] { "text",PASSAGE_ID }, analyzer);
 
         }
         public string[] GetFinalqueryAndNumberofDocument(string querytext)
@@ -55,6 +57,25 @@ namespace KLDQuziAnsnwerSystem
         public void CleanUpSearcher()
         {
             searcher.Dispose();
+        }
+        public void outputResult(string TopicID, string querytext, string filePath)
+        {
+            string textPath = filePath + @"\" + TopicID + ".txt";
+            FileStream fs1 = new FileStream(textPath, FileMode.Create, FileAccess.Write);
+            StreamWriter sw = new StreamWriter(fs1);
+            querytext = querytext.ToLower();
+            Query query = parser.Parse(querytext);
+            TopDocs results = searcher.Search(query, NewMain.resultCount);
+            int rank = 0;
+            foreach (ScoreDoc scoreDoc in results.ScoreDocs)
+            {
+                rank++;
+                Lucene.Net.Documents.Document doc = searcher.Doc(scoreDoc.Doc);
+                string myFieldValuePID = doc.Get(PASSAGE_ID).ToString();
+                sw.WriteLine("{0,-4} {1,-4} {2,-7} {3,-5} {4,-11} {5}", TopicID, "Q0", myFieldValuePID, rank, scoreDoc.Score, "N10273077-N10075615-N10359613-N10130039-ATeam");
+            }
+            sw.Close();
+            fs1.Close();
         }
         public List<string> SearchText(string querytext)
         {

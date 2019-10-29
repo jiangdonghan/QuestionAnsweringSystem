@@ -251,10 +251,21 @@ namespace KLDQuziAnsnwerSystem
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 string foldPath = dialog.SelectedPath;
-                NewSearcher newsearcher = new NewSearcher();
-                newsearcher.CreateSearcher(path);
-                newsearcher.outputResult(TopicIDString, queryText, foldPath);
-                MessageBox.Show("Result Successfully Saved");
+                if (SelectSystem.Checked)
+                {
+                    Searcher searcher = new Searcher();
+                    searcher.CreateSearcher(path);
+                    searcher.outputResult(TopicIDString, queryText, foldPath);
+                    MessageBox.Show("Result Successfully Saved");
+                }
+                else
+                {
+                    NewSearcher newsearcher = new NewSearcher();
+                    newsearcher.CreateSearcher(path);
+                    newsearcher.outputResult(TopicIDString, queryText, foldPath);
+                    MessageBox.Show("Result Successfully Saved");
+                }
+                
             }                     
         }
 
